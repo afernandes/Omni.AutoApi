@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
 
     <IsPackable>true</IsPackable>
-    <PackageId>Omni.AutoApi.Client</PackageId>
+    <PackageId>AndersonN.Omni.AutoApi.Client</PackageId>
     <Description>Proxy de cliente HTTP dinâmico (runtime, via DispatchProxy) e registro DI para serviços remotos Auto API.</Description>
   </PropertyGroup>
 

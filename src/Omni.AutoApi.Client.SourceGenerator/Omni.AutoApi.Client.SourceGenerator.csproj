@@ -15,7 +15,7 @@
     <NoWarn>$(NoWarn);NU5128</NoWarn>
 
     <IsPackable>true</IsPackable>
-    <PackageId>Omni.AutoApi.Client.SourceGenerator</PackageId>
+    <PackageId>AndersonN.Omni.AutoApi.Client.SourceGenerator</PackageId>
     <Description>Source generator que emite, em tempo de compilação, clientes HTTP tipados (XxxClient) para interfaces remotas marcadas com [AutoApiClient].</Description>
     <DevelopmentDependency>true</DevelopmentDependency>
   </PropertyGroup>
@@ -42,8 +42,8 @@
   <ItemGroup>
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     <!-- Props que expõem AutoApiRoutePrefix/AutoApiUseKebabCase ao gerador no consumidor. -->
-    <None Include="build\Omni.AutoApi.Client.SourceGenerator.props" Pack="true" PackagePath="build" />
-    <None Include="build\Omni.AutoApi.Client.SourceGenerator.props" Pack="true" PackagePath="buildTransitive" />
+    <None Include="build\AndersonN.Omni.AutoApi.Client.SourceGenerator.props" Pack="true" PackagePath="build" />
+    <None Include="build\AndersonN.Omni.AutoApi.Client.SourceGenerator.props" Pack="true" PackagePath="buildTransitive" />
   </ItemGroup>
 
 </Project>

@@ -23,15 +23,24 @@ no servidor, no Blazor (Server/WebAssembly) e no MAUI.
 
 ## Pacotes
 
-| Pacote | Descrição | TFM |
+| Pacote (NuGet) | Descrição | TFM |
 |---|---|---|
-| `Omni.AutoApi.Abstractions` | `IRemoteService`, atributos, `RemoteStreamContent` e regras de rota/verbo | net9.0; net10.0 |
-| `Omni.AutoApi.AspNetCore` | Lado servidor: transforma `IRemoteService` em controllers MVC reais | net9.0; net10.0 |
-| `Omni.AutoApi.Client` | Lado cliente: proxy HTTP dinâmico (runtime, via `DispatchProxy`) + DI | net9.0; net10.0 |
-| `Omni.AutoApi.Client.SourceGenerator` | Gera o cliente HTTP real (`XxxClient`) + extensões de DI em compilação | netstandard2.0 (analyzer) |
+| `AndersonN.Omni.AutoApi.Abstractions` | `IRemoteService`, atributos, `RemoteStreamContent` e regras de rota/verbo | net9.0; net10.0 |
+| `AndersonN.Omni.AutoApi.AspNetCore` | Lado servidor: transforma `IRemoteService` em controllers MVC reais | net9.0; net10.0 |
+| `AndersonN.Omni.AutoApi.Client` | Lado cliente: proxy HTTP dinâmico (runtime, via `DispatchProxy`) + DI | net9.0; net10.0 |
+| `AndersonN.Omni.AutoApi.Client.SourceGenerator` | Gera o cliente HTTP real (`XxxClient`) + extensões de DI em compilação | netstandard2.0 (analyzer) |
 
-> `Omni.AutoApi.Client.SourceGenerator` é um analisador e requer `Omni.AutoApi.Abstractions` no projeto consumidor
-> (vem transitivamente ao usar `Omni.AutoApi.AspNetCore` ou `Omni.AutoApi.Client`).
+```bash
+dotnet add package AndersonN.Omni.AutoApi.AspNetCore   # servidor
+dotnet add package AndersonN.Omni.AutoApi.Client       # cliente (proxy dinâmico)
+```
+
+> **Nome do pacote × namespace:** os IDs no NuGet usam o prefixo `AndersonN.` (o prefixo `Omni.*` é
+> reservado por outra conta no nuget.org), mas os **namespaces C# continuam `Omni.AutoApi.*`** —
+> ou seja, você instala `AndersonN.Omni.AutoApi.Client` e escreve `using Omni.AutoApi.Client;`.
+>
+> O pacote `...Client.SourceGenerator` é um analisador e requer `...Abstractions` no projeto
+> consumidor (vem transitivamente ao usar `...AspNetCore` ou `...Client`).
 
 ## Início rápido
 

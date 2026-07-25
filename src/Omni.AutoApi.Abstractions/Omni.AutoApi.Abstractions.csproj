@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
 
     <IsPackable>true</IsPackable>
-    <PackageId>Omni.AutoApi.Abstractions</PackageId>
+    <PackageId>AndersonN.Omni.AutoApi.Abstractions</PackageId>
     <Description>Tipos compartilhados do mecanismo Auto API: marker interface IRemoteService, atributos e as regras de rota/verbo (ApiRouteBuilder).</Description>
   </PropertyGroup>
 

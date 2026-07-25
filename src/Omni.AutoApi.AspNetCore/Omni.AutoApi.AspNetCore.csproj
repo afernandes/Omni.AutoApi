@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
 
     <IsPackable>true</IsPackable>
-    <PackageId>Omni.AutoApi.AspNetCore</PackageId>
+    <PackageId>AndersonN.Omni.AutoApi.AspNetCore</PackageId>
     <Description>Auto API Controllers para ASP.NET Core: expõe Application Services (IRemoteService) como controllers MVC reais, com rota/verbo/binding convencionais.</Description>
   </PropertyGroup>
 

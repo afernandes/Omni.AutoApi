@@ -40,6 +40,10 @@ versionamento [SemVer](https://semver.org).
 
 > Alvo: **.NET 10** (libs e samples; o source generator permanece em `netstandard2.0`). Pacotes
 > Microsoft.* em `10.0.0`.
+>
+> **IDs no NuGet:** `AndersonN.Omni.AutoApi.*` (o prefixo `Omni.*` é reservado por outra conta no
+> nuget.org). Os **namespaces C# permanecem `Omni.AutoApi.*`** — os nomes abaixo referem-se aos
+> assemblies/namespaces.
 
 ### Adicionado
 - **Omni.AutoApi.AspNetCore** — expõe `IRemoteService`/`ApplicationService` como controllers MVC reais
