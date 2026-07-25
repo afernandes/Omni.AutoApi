@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="11.0.0-preview.4.*" />
+  </ItemGroup>
+
+  <!-- Omni.AutoApi: contrato remoto + geração do cliente HTTP tipado (compartilhado por todos os hosts). -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Omni.AutoApi.Abstractions\Omni.AutoApi.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\src\Omni.AutoApi.Client.SourceGenerator\Omni.AutoApi.Client.SourceGenerator.csproj"
+                      OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+</Project>

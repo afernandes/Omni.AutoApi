@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <IsPackable>true</IsPackable>
+    <PackageId>Omni.AutoApi.Abstractions</PackageId>
+    <Description>Tipos compartilhados do mecanismo Auto API: marker interface IRemoteService, atributos e as regras de rota/verbo (ApiRouteBuilder).</Description>
+  </PropertyGroup>
+
+</Project>

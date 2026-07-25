@@ -1,0 +1,51 @@
+@page "/todos"
+@using SharedApp.Shared.Services
+@inject ITodoAppService TodoService
+
+<PageTitle>Todos</PageTitle>
+
+<h1>Todos</h1>
+
+<p>
+    Esta página injeta apenas <code>ITodoAppService</code> e roda <strong>igual</strong> no Blazor
+    Server (in-process), no WebAssembly e no MAUI (via HttpClient gerado). Nenhum código de host aqui.
+</p>
+
+@if (items is null)
+{
+    <p><em>Carregando...</em></p>
+}
+else
+{
+    <ul class="list-group mb-3">
+        @foreach (var item in items)
+        {
+            <li class="list-group-item">@item.Title @(item.IsCompleted ? "✓" : "")</li>
+        }
+    </ul>
+
+    <div class="input-group">
+        <input class="form-control" @bind="newTitle" placeholder="Novo todo" />
+        <button class="btn btn-primary" @onclick="AddAsync">Adicionar</button>
+    </div>
+}
+
+@code {
+    private List<TodoItem>? items;
+    private string? newTitle;
+
+    protected override async Task OnInitializedAsync()
+        => items = await TodoService.GetTodosAsync();
+
+    private async Task AddAsync()
+    {
+        if (string.IsNullOrWhiteSpace(newTitle))
+        {
+            return;
+        }
+
+        await TodoService.CreateTodoAsync(new CreateTodoDto { Title = newTitle });
+        items = await TodoService.GetTodosAsync();
+        newTitle = string.Empty;
+    }
+}

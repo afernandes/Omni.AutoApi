@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <IsPackable>true</IsPackable>
+    <PackageId>Omni.AutoApi.AspNetCore</PackageId>
+    <Description>Auto API Controllers para ASP.NET Core: expõe Application Services (IRemoteService) como controllers MVC reais, com rota/verbo/binding convencionais.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Omni.AutoApi.Abstractions\Omni.AutoApi.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

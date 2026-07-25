@@ -1,0 +1,12 @@
+﻿<ContentPage xmlns:local="clr-namespace:SharedApp"
+             xmlns:shared="clr-namespace:SharedApp.Shared;assembly=SharedApp.Shared"
+             x:Class="SharedApp.MainPage"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+
+    <BlazorWebView x:Name="blazorWebView" HostPage="wwwroot/index.html">
+        <BlazorWebView.RootComponents>
+            <RootComponent Selector="#app" ComponentType="{x:Type shared:Routes}" />
+        </BlazorWebView.RootComponents>
+    </BlazorWebView>
+
+</ContentPage>

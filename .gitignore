@@ -1,0 +1,54 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+artifacts/
+
+# Source-generator output emitido em disco (regenerado no build)
+**/Generated/
+
+# Feed NuGet local do exemplo de distribuição
+samples/Distribution/_feed/
+
+# Visual Studio / Rider / VS Code
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userprefs
+*_i.c
+*_p.c
+
+# NuGet
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+project.lock.json
+project.fragment.lock.json
+
+# .NET
+*.pdb
+*.cache
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# MAUI / mobile
+**/Platforms/Android/bin/
+**/Platforms/iOS/bin/
+*.keystore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Configuração local do Claude Code (por máquina)
+.claude/settings.local.json
+
+# Projetos de verificação/rascunho (fora da solução; não fazem parte da biblioteca)
+/DITest/
+/TestRef/
+/UrlTest/
+*.csx

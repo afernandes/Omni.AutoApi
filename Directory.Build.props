@@ -1,0 +1,34 @@
+<Project>
+
+  <!-- Metadados de pacote compartilhados por todos os projetos empacotáveis. -->
+  <PropertyGroup>
+    <!-- Versão ÚNICA de todos os pacotes (não repita <Version> nos .csproj). -->
+    <Version>0.1.0</Version>
+
+    <Authors>Anderson Fernandes</Authors>
+    <Company>Anderson Fernandes</Company>
+    <Product>Omni.AutoApi</Product>
+    <Copyright>Copyright (c) 2026 Anderson Fernandes</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>aspnetcore;auto-api;controllers;convention;http-client;source-generator;abp;rpc;blazor;maui</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/afernandes/Omni.AutoApi</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/afernandes/Omni.AutoApi</PackageProjectUrl>
+    <PackageReleaseNotes>Consulte o CHANGELOG.md do repositório.</PackageReleaseNotes>
+
+    <!-- Boas práticas de empacotamento -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Build determinístico no CI (GitHub Actions define CI=true). -->
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+    <!-- XML docs no pacote (IntelliSense para quem consome). -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Não falhar por membro público sem <summary>: os docs existem onde importam. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <!-- README exibido na página do NuGet.org (o arquivo é incluído no Directory.Build.targets). -->
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+</Project>

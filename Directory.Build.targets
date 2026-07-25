@@ -1,0 +1,14 @@
+<Project>
+
+  <!-- Importado no FIM do .csproj, quando $(IsPackable) já está definido — por isso os
+       itens abaixo (que só fazem sentido nos pacotes) moram aqui, e não no .props. -->
+
+  <ItemGroup Condition="'$(IsPackable)' == 'true'">
+    <!-- README na raiz do pacote (aparece na página do NuGet.org). -->
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\" Visible="false" />
+
+    <!-- SourceLink: liga os .snupkg ao código no GitHub (debug passo-a-passo do pacote). -->
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

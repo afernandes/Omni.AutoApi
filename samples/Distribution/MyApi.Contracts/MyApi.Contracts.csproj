@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <IsPackable>true</IsPackable>
+    <PackageId>MyApi.Contracts</PackageId>
+    <Version>1.1.0</Version>
+    <Description>Contratos remotos + cliente HTTP GERADO (Omni.AutoApi) — distribuível via NuGet.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Flui para os consumidores (a interface estende IRemoteService). -->
+    <ProjectReference Include="..\..\..\src\Omni.AutoApi.Abstractions\Omni.AutoApi.Abstractions.csproj" />
+    <!-- Necessário para o gerador EMITIR as extensões de DI (Add*Client/AddAllAutoApiClients)
+         dentro deste assembly. Sem isto, só o cliente é gerado (sem os helpers de DI). -->
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+
+    <!-- Analisador: roda AQUI e "assa" o TodoAppServiceClient dentro deste DLL.
+         PrivateAssets=all => o consumidor NÃO precisa do gerador. -->
+    <ProjectReference Include="..\..\..\src\Omni.AutoApi.Client.SourceGenerator\Omni.AutoApi.Client.SourceGenerator.csproj"
+                      OutputItemType="Analyzer" ReferenceOutputAssembly="false" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

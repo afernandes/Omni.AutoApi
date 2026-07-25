@@ -1,0 +1,17 @@
+<Project>
+
+  <!-- Expõe as opções de rota ao source generator (lidas via AnalyzerConfigOptions).
+       Use no seu .csproj:
+         <PropertyGroup>
+           <AutoApiRoutePrefix>api/services</AutoApiRoutePrefix>
+           <AutoApiUseKebabCase>true</AutoApiUseKebabCase>
+         </PropertyGroup>
+       Mantenha em sincronia com AddAutoApiServices(o => o.Prefix = "...") no servidor. -->
+  <ItemGroup>
+    <CompilerVisibleProperty Include="AutoApiRoutePrefix" />
+    <CompilerVisibleProperty Include="AutoApiUseKebabCase" />
+    <!-- Lista separada por ',' ou ';'. Ex.: <AutoApiControllerPostfixes>Handler;Service</AutoApiControllerPostfixes> -->
+    <CompilerVisibleProperty Include="AutoApiControllerPostfixes" />
+  </ItemGroup>
+
+</Project>
