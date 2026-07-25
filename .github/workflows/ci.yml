@@ -1,9 +1,11 @@
 name: CI
 
+# Valida build/testes/empacotamento. A PUBLICAÇÃO no nuget.org fica no release.yml
+# (disparado por tag v*, via Trusted Publishing/OIDC — sem API key de longa duração).
+
 on:
   push:
     branches: [ main ]
-    tags: [ 'v*' ]
   pull_request:
     branches: [ main ]
 
@@ -35,7 +37,3 @@ jobs:
         with:
           name: nupkg
           path: artifacts/*.nupkg
-
-      - name: Publish to NuGet (on tag)
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: dotnet nuget push "artifacts/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate

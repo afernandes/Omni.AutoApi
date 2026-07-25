@@ -188,6 +188,16 @@ dotnet test  Omni.AutoApi.sln
 dotnet pack  Omni.AutoApi.sln -c Release -o artifacts   # gera os 4 .nupkg
 ```
 
+### Publicação
+
+A publicação no nuget.org é automática via **Trusted Publishing** (OIDC — sem API key de longa
+duração). Basta criar a tag; o workflow [`release.yml`](.github/workflows/release.yml) usa a **tag como
+versão** dos pacotes:
+
+```bash
+git tag v0.2.0 && git push origin v0.2.0   # publica Omni.AutoApi.* 0.2.0
+```
+
 ## Limitações & notas
 
 - **Sobrecargas** de método não são suportadas (colisão de rota → falha no startup); use `[HttpGet("rota")]`/`[Route]`.

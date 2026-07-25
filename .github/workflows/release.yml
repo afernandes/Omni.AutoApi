@@ -1,0 +1,73 @@
+name: Release
+
+# O NOME DESTE ARQUIVO (release.yml) precisa bater com o campo "Workflow File" da
+# política de Trusted Publishing no nuget.org. Se renomear aqui, atualize lá também.
+
+on:
+  push:
+    tags: [ 'v*' ]        # ex.: v0.1.0 -> publica a versão 0.1.0
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versão a publicar (ex.: 0.1.0)'
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write     # obrigatório: emite o token OIDC do GitHub p/ o nuget.org
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # A tag é a fonte da verdade da versão (sobrepõe o <Version> do Directory.Build.props),
+      # evitando publicar 0.1.0 ao criar a tag v0.2.0.
+      - name: Resolver versão
+        id: version
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          if [ -z "$VERSION" ]; then VERSION="${GITHUB_REF_NAME#v}"; fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Publicando versão $VERSION"
+
+      - name: Restore
+        run: dotnet restore Omni.AutoApi.sln
+
+      - name: Build
+        run: dotnet build Omni.AutoApi.sln -c Release --no-restore -p:Version=${{ steps.version.outputs.version }}
+
+      # Não publica pacote quebrado.
+      - name: Test
+        run: dotnet test Omni.AutoApi.sln -c Release --no-build
+
+      - name: Pack
+        run: dotnet pack Omni.AutoApi.sln -c Release --no-build -o artifacts -p:Version=${{ steps.version.outputs.version }}
+
+      # Troca o token OIDC por uma API key temporária (válida por 1h, uso único).
+      # 'user' é o nome de perfil do nuget.org (não o e-mail); defina a variável de
+      # repositório NUGET_USER para sobrescrever sem mexer no workflow.
+      - name: NuGet login (OIDC -> API key temporária)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ vars.NUGET_USER || 'AndersonN' }}
+
+      - name: Push para o nuget.org
+        run: >
+          dotnet nuget push "artifacts/*.nupkg"
+          --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate
+
+      - name: Anexar pacotes ao run
+        uses: actions/upload-artifact@v4
+        with:
+          name: nupkg-${{ steps.version.outputs.version }}
+          path: artifacts/*.nupkg
