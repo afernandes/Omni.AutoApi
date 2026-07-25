@@ -59,12 +59,13 @@ jobs:
         with:
           user: ${{ vars.NUGET_USER || 'AndersonN' }}
 
+      # SEM --skip-duplicate de propósito: ele converte QUALQUER 409 (inclusive
+      # "ID reservado"/permissão) em sucesso silencioso, mascarando falhas reais.
       - name: Push para o nuget.org
         run: >
           dotnet nuget push "artifacts/*.nupkg"
           --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
           --source https://api.nuget.org/v3/index.json
-          --skip-duplicate
 
       - name: Anexar pacotes ao run
         uses: actions/upload-artifact@v4
