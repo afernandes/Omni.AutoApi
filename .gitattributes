@@ -1,0 +1,19 @@
+# Normaliza as quebras de linha NO REPOSITÓRIO para LF, mantendo o checkout nativo
+# de cada plataforma. Sem isto, o `dotnet format` do CI (Linux) diverge do Windows.
+* text=auto
+
+# Arquivos que devem manter LF mesmo no Windows (executados por shells POSIX).
+*.sh text eol=lf
+
+# Binários: nunca converter.
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.svg text
+*.snk binary
+*.dll binary
+*.exe binary
+*.pdf binary
+*.nupkg binary
+*.snupkg binary
