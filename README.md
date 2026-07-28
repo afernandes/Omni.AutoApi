@@ -227,6 +227,7 @@ git tag v0.2.0 && git push origin v0.2.0   # publica Omni.AutoApi.* 0.2.0
   `[DynamicallyAccessedMembers]`; ainda assim prefira parâmetros simples/body em apps trimmed.
 - **BaseAddress**: normalizada automaticamente (barra final); ausência gera erro claro na 1ª chamada.
 
-## Licença & changelog
+## Licença, changelog & roadmap
 
-[MIT](LICENSE). Histórico em [CHANGELOG.md](CHANGELOG.md).
+[MIT](LICENSE). Histórico em [CHANGELOG.md](CHANGELOG.md). Próximos passos e pendências
+priorizadas em [ROADMAP.md](ROADMAP.md).
