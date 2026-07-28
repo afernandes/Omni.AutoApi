@@ -1,7 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
-using Omni.AutoApi.Sample.Web;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Omni.AutoApi.Sample.Web;
 using Xunit;
 
 namespace Omni.AutoApi.IntegrationTests;

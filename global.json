@@ -1,0 +1,14 @@
+{
+  "$comment": [
+    "Fixa o SDK usado para compilar a biblioteca, os testes e o sample básico.",
+    "Isso importa especialmente para o source generator: ele compila contra o Roslyn",
+    "do SDK, então divergências entre a máquina de dev e o CI podem produzir código",
+    "gerado diferente. Mantenha em sincronia com dotnet-version nos workflows.",
+    "O sample samples/BlazorMauiAuto tem um global.json próprio (net11 + workloads MAUI)."
+  ],
+  "sdk": {
+    "version": "10.0.302",
+    "rollForward": "latestFeature",
+    "allowPrerelease": false
+  }
+}

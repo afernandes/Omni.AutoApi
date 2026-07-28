@@ -1,0 +1,72 @@
+#nullable enable
+Omni.AutoApi.AspNetCore.ApiVersioningExtensions
+Omni.AutoApi.AspNetCore.ApplicationService
+Omni.AutoApi.AspNetCore.ApplicationService.ApplicationService() -> void
+Omni.AutoApi.AspNetCore.ApplicationService.CurrentUser.get -> Omni.AutoApi.AspNetCore.ICurrentUser!
+Omni.AutoApi.AspNetCore.ApplicationService.GetRequiredService<T>() -> T
+Omni.AutoApi.AspNetCore.ApplicationService.LazyServices.get -> Omni.AutoApi.AspNetCore.LazyServiceProvider?
+Omni.AutoApi.AspNetCore.ApplicationService.LazyServices.set -> void
+Omni.AutoApi.AspNetCore.ApplicationService.Logger.get -> Microsoft.Extensions.Logging.ILogger!
+Omni.AutoApi.AspNetCore.AutoApiActionModel
+Omni.AutoApi.AspNetCore.AutoApiActionModel.Action.get -> string!
+Omni.AutoApi.AspNetCore.AutoApiActionModel.Action.set -> void
+Omni.AutoApi.AspNetCore.AutoApiActionModel.AutoApiActionModel() -> void
+Omni.AutoApi.AspNetCore.AutoApiActionModel.Controller.get -> string!
+Omni.AutoApi.AspNetCore.AutoApiActionModel.Controller.set -> void
+Omni.AutoApi.AspNetCore.AutoApiActionModel.HttpMethod.get -> string!
+Omni.AutoApi.AspNetCore.AutoApiActionModel.HttpMethod.set -> void
+Omni.AutoApi.AspNetCore.AutoApiActionModel.Parameters.get -> System.Collections.Generic.List<Omni.AutoApi.AspNetCore.AutoApiParameterModel!>!
+Omni.AutoApi.AspNetCore.AutoApiActionModel.Parameters.set -> void
+Omni.AutoApi.AspNetCore.AutoApiActionModel.ReturnType.get -> string?
+Omni.AutoApi.AspNetCore.AutoApiActionModel.ReturnType.set -> void
+Omni.AutoApi.AspNetCore.AutoApiActionModel.Route.get -> string!
+Omni.AutoApi.AspNetCore.AutoApiActionModel.Route.set -> void
+Omni.AutoApi.AspNetCore.AutoApiControllerConvention
+Omni.AutoApi.AspNetCore.AutoApiControllerConvention.Apply(Microsoft.AspNetCore.Mvc.ApplicationModels.ControllerModel! controller) -> void
+Omni.AutoApi.AspNetCore.AutoApiControllerConvention.AutoApiControllerConvention(Omni.AutoApi.Routing.RouteOptions? routeOptions = null, Microsoft.Extensions.Logging.ILogger? logger = null) -> void
+Omni.AutoApi.AspNetCore.AutoApiControllerFeatureProvider
+Omni.AutoApi.AspNetCore.AutoApiControllerFeatureProvider.AutoApiControllerFeatureProvider() -> void
+Omni.AutoApi.AspNetCore.AutoApiDefinitionEndpoint
+Omni.AutoApi.AspNetCore.AutoApiDefinitionModel
+Omni.AutoApi.AspNetCore.AutoApiDefinitionModel.Actions.get -> System.Collections.Generic.List<Omni.AutoApi.AspNetCore.AutoApiActionModel!>!
+Omni.AutoApi.AspNetCore.AutoApiDefinitionModel.Actions.set -> void
+Omni.AutoApi.AspNetCore.AutoApiDefinitionModel.AutoApiDefinitionModel() -> void
+Omni.AutoApi.AspNetCore.AutoApiException
+Omni.AutoApi.AspNetCore.AutoApiException.AutoApiException(string! message, int statusCode = 400, string? errorCode = null) -> void
+Omni.AutoApi.AspNetCore.AutoApiException.ErrorCode.get -> string?
+Omni.AutoApi.AspNetCore.AutoApiException.StatusCode.get -> int
+Omni.AutoApi.AspNetCore.AutoApiParameterModel
+Omni.AutoApi.AspNetCore.AutoApiParameterModel.AutoApiParameterModel() -> void
+Omni.AutoApi.AspNetCore.AutoApiParameterModel.Name.get -> string!
+Omni.AutoApi.AspNetCore.AutoApiParameterModel.Name.set -> void
+Omni.AutoApi.AspNetCore.AutoApiParameterModel.Required.get -> bool
+Omni.AutoApi.AspNetCore.AutoApiParameterModel.Required.set -> void
+Omni.AutoApi.AspNetCore.AutoApiParameterModel.Source.get -> string!
+Omni.AutoApi.AspNetCore.AutoApiParameterModel.Source.set -> void
+Omni.AutoApi.AspNetCore.AutoApiParameterModel.Type.get -> string!
+Omni.AutoApi.AspNetCore.AutoApiParameterModel.Type.set -> void
+Omni.AutoApi.AspNetCore.AutoApiResponseEnrichmentProvider
+Omni.AutoApi.AspNetCore.AutoApiResponseEnrichmentProvider.AutoApiResponseEnrichmentProvider() -> void
+Omni.AutoApi.AspNetCore.AutoApiResponseEnrichmentProvider.OnProvidersExecuted(Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionProviderContext! context) -> void
+Omni.AutoApi.AspNetCore.AutoApiResponseEnrichmentProvider.OnProvidersExecuting(Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionProviderContext! context) -> void
+Omni.AutoApi.AspNetCore.AutoApiResponseEnrichmentProvider.Order.get -> int
+Omni.AutoApi.AspNetCore.BusinessException
+Omni.AutoApi.AspNetCore.BusinessException.BusinessException(string! message, string? errorCode = null) -> void
+Omni.AutoApi.AspNetCore.EntityNotFoundException
+Omni.AutoApi.AspNetCore.EntityNotFoundException.EntityNotFoundException(string! message = "Recurso não encontrado.") -> void
+Omni.AutoApi.AspNetCore.ICurrentUser
+Omni.AutoApi.AspNetCore.ICurrentUser.Claims.get -> System.Collections.Generic.IEnumerable<System.Security.Claims.Claim!>!
+Omni.AutoApi.AspNetCore.ICurrentUser.Id.get -> string?
+Omni.AutoApi.AspNetCore.ICurrentUser.IsAuthenticated.get -> bool
+Omni.AutoApi.AspNetCore.ICurrentUser.UserName.get -> string?
+Omni.AutoApi.AspNetCore.LazyServiceProvider
+Omni.AutoApi.AspNetCore.LazyServiceProvider.GetRequiredService(System.Type! type) -> object!
+Omni.AutoApi.AspNetCore.LazyServiceProvider.GetRequiredService<T>() -> T
+Omni.AutoApi.AspNetCore.LazyServiceProvider.GetService<T>() -> T?
+Omni.AutoApi.AspNetCore.LazyServiceProvider.LazyServiceProvider(System.IServiceProvider! provider) -> void
+Omni.AutoApi.AspNetCore.ServiceCollectionExtensions
+override Omni.AutoApi.AspNetCore.AutoApiControllerFeatureProvider.IsController(System.Reflection.TypeInfo! typeInfo) -> bool
+static Omni.AutoApi.AspNetCore.ApiVersioningExtensions.AddAutoApiVersioning(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Action<Asp.Versioning.ApiVersioningOptions!>? configure = null) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
+static Omni.AutoApi.AspNetCore.AutoApiDefinitionEndpoint.Build(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionGroupCollectionProvider! provider) -> Omni.AutoApi.AspNetCore.AutoApiDefinitionModel!
+static Omni.AutoApi.AspNetCore.AutoApiDefinitionEndpoint.MapAutoApiDefinition(this Microsoft.AspNetCore.Routing.IEndpointRouteBuilder! endpoints, string! pattern = "/api/auto-api/definition") -> Microsoft.AspNetCore.Builder.IEndpointConventionBuilder!
+static Omni.AutoApi.AspNetCore.ServiceCollectionExtensions.AddAutoApiServices(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Action<Omni.AutoApi.Routing.RouteOptions!>? configureRoutes = null) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!

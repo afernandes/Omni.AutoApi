@@ -1,9 +1,22 @@
 # Omni.AutoApi
 
+[![CI](https://github.com/afernandes/Omni.AutoApi/actions/workflows/ci.yml/badge.svg)](https://github.com/afernandes/Omni.AutoApi/actions/workflows/ci.yml)
+[![NuGet](https://img.shields.io/nuget/v/AndersonN.Omni.AutoApi.AspNetCore.svg?label=nuget)](https://www.nuget.org/packages/AndersonN.Omni.AutoApi.AspNetCore)
+[![Downloads](https://img.shields.io/nuget/dt/AndersonN.Omni.AutoApi.AspNetCore.svg)](https://www.nuget.org/packages/AndersonN.Omni.AutoApi.AspNetCore)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Mecanismo estilo **ABP Auto API Controllers** para **ASP.NET Core (.NET 10)**: exponha *Application
 Services* como controllers HTTP automaticamente e consuma-os por **clientes tipados** — um proxy
 dinâmico em runtime **ou** um cliente real gerado em tempo de compilação. A **mesma interface** roda
 no servidor, no Blazor (Server/WebAssembly) e no MAUI.
+
+```bash
+dotnet add package AndersonN.Omni.AutoApi.AspNetCore
+```
+```csharp
+builder.Services.AddAutoApiServices();     // pronto: seus IRemoteService viram endpoints
+app.MapControllers();
+```
 
 ## Destaques
 
@@ -19,7 +32,7 @@ no servidor, no Blazor (Server/WebAssembly) e no MAUI.
 - **Erros padronizados** em `ProblemDetails` (RFC 9457) + exceções de negócio.
 - **Endpoint de definição** `/api/auto-api/definition` (estilo ABP `/api/abp/api-definition`).
 - **Rotas configuráveis** (`RouteOptions`) e **versionamento** opt-in (`Asp.Versioning`).
-- Coberto por **60 testes** (unit + integração). Licença **MIT**.
+- Coberto por **80 testes** (unit + integração). Licença **MIT**.
 
 ## Pacotes
 
@@ -129,13 +142,42 @@ throw new BusinessException("Saldo insuficiente");         // -> 409
 **Validação automática** — DataAnnotations no DTO (`[Required]`, `[Range]`, ...) inválidas retornam
 400 `ProblemDetails` com `"code": "ValidationError"` e erros por campo, sem código na action.
 
-**Autorização declarativa** — `[Authorize]`/policies na classe ou método do Application Service
-funcionam normalmente (o metadata é preservado no endpoint):
+**Autenticação e autorização** — `[Authorize]`/policies na classe ou método do Application Service
+funcionam normalmente (o metadata é preservado no endpoint). No servidor, nada além do setup padrão
+de auth do ASP.NET Core:
 
 ```csharp
-[Authorize(Roles = "admin")]
-public class AdminAppService : ApplicationService { ... }
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(/* ... */);
+builder.Services.AddAuthorization(o => o.AddPolicy("todo:admin", p => p.RequireRole("admin")));
+// ...
+app.UseAuthentication();
+app.UseAuthorization();
 ```
+```csharp
+public class TodoApplicationService : ApplicationService, ITodoAppService
+{
+    public Task<List<TodoItem>> GetTodosAsync() => ...;              // público
+
+    [Authorize]                                                       // exige token válido -> 401
+    public Task<TodoItem> CreateSecureTodoAsync(CreateTodoDto input) => ...;
+
+    [Authorize(Policy = "todo:admin")]                                // exige a policy -> 403
+    public Task DeleteAllTodosAsync() => ...;
+}
+```
+
+Do **lado cliente**, use o `AuthTokenHandler` para anexar `Authorization: Bearer …` (o callback é
+chamado a cada requisição, então serve tanto para token fixo quanto para renovação):
+
+```csharp
+builder.Services.AddSingleton(sp => new AuthTokenHandler(() => sp.GetRequiredService<ITokenStore>().Current));
+builder.Services.AddTodoAppServiceClient((_, http) => http.BaseAddress = new Uri(baseUrl))
+                .AddHttpMessageHandler<AuthTokenHandler>();
+```
+
+O sample [`Omni.AutoApi.Sample.Web`](samples/Omni.AutoApi.Sample.Web) traz o fluxo JWT completo
+(emissor de token de teste em `/dev/token`, serviço protegido e policy), coberto por testes de
+integração 200/401/403.
 
 **Upload e streaming** — a mesma interface declara upload (sem depender de `IFormFile`) e
 streaming incremental, funcionando no servidor e nos dois clientes:
@@ -226,6 +268,11 @@ git tag v0.2.0 && git push origin v0.2.0   # publica Omni.AutoApi.* 0.2.0
 - **Trimming/AOT**: o caminho reflexivo do cliente (DTO complexo em GET/DELETE) já é anotado com
   `[DynamicallyAccessedMembers]`; ainda assim prefira parâmetros simples/body em apps trimmed.
 - **BaseAddress**: normalizada automaticamente (barra final); ausência gera erro claro na 1ª chamada.
+
+## Contribuindo
+
+Veja [CONTRIBUTING.md](CONTRIBUTING.md) (build, testes, política de API pública) e
+[SECURITY.md](SECURITY.md) para reporte de vulnerabilidades.
 
 ## Licença, changelog & roadmap
 

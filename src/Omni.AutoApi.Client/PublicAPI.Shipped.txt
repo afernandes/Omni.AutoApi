@@ -1,0 +1,9 @@
+#nullable enable
+Omni.AutoApi.Client.AutoApiClientExtensions
+Omni.AutoApi.Client.DynamicHttpProxy<T>
+Omni.AutoApi.Client.DynamicHttpProxy<T>.DynamicHttpProxy() -> void
+override Omni.AutoApi.Client.DynamicHttpProxy<T>.Invoke(System.Reflection.MethodInfo? targetMethod, object?[]? args) -> object?
+static Omni.AutoApi.Client.AutoApiClientExtensions.AddAutoApiClient<TService>(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Action<System.IServiceProvider!, System.Net.Http.HttpClient!>! configureClient, Omni.AutoApi.Routing.RouteOptions? routeOptions = null, System.Text.Json.JsonSerializerOptions? jsonOptions = null) -> Microsoft.Extensions.DependencyInjection.IHttpClientBuilder!
+static Omni.AutoApi.Client.AutoApiClientExtensions.AddAutoApiClients(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Reflection.Assembly! assembly, System.Action<System.IServiceProvider!, System.Net.Http.HttpClient!, System.Type!>! configureClient, Omni.AutoApi.Routing.RouteOptions? routeOptions = null) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
+static Omni.AutoApi.Client.AutoApiClientExtensions.AddAutoApiClients(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Reflection.Assembly! assembly, System.Action<System.IServiceProvider!, System.Net.Http.HttpClient!>! configureClient, Omni.AutoApi.Routing.RouteOptions? routeOptions = null) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
+static Omni.AutoApi.Client.DynamicHttpProxy<T>.Create(System.Net.Http.HttpClient! httpClient, System.Text.Json.JsonSerializerOptions? jsonOptions = null, Omni.AutoApi.Routing.RouteOptions? routeOptions = null) -> T!

@@ -1,0 +1,12 @@
+{
+  "$comment": [
+    "Este sample usa net11.0 + workloads MAUI, então precisa do SDK 11 — sobrepõe o",
+    "global.json da raiz (o dotnet usa o primeiro global.json encontrado subindo a árvore).",
+    "Ele NÃO faz parte de Omni.AutoApi.sln; abra samples/BlazorMauiAuto/SharedApp.sln."
+  ],
+  "sdk": {
+    "version": "11.0.100-preview.4.26230.115",
+    "rollForward": "latestPatch",
+    "allowPrerelease": true
+  }
+}

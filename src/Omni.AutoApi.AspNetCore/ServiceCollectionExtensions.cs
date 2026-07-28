@@ -1,9 +1,9 @@
-using Omni.AutoApi.Routing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Omni.AutoApi.Routing;
 
 namespace Omni.AutoApi.AspNetCore
 {

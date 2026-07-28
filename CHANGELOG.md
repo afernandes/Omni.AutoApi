@@ -5,7 +5,26 @@ versionamento [SemVer](https://semver.org).
 
 ## [Unreleased]
 
+### Corrigido (crítico)
+- **`AddAutoApiVersioning` não funcionava**: o `Asp.Versioning` só aplica versionamento a
+  controllers que satisfaçam alguma `IApiControllerSpecification` (por padrão, os marcados com
+  `[ApiController]`). Como os Auto API Controllers são promovidos por convenção, ficavam de fora —
+  o `ApiVersionMetadata` nunca chegava ao endpoint e **nenhuma restrição de versão era aplicada**
+  (versão inexistente era aceita, `[MapToApiVersion]` não isolava, `api-supported-versions` ausente).
+  Agora registramos `AutoApiControllerSpecification`, mesmo papel do
+  `AbpConventionalApiControllerSpecification` no ABP. Descoberto pelos testes E2E de versionamento.
+
 ### Adicionado
+- **`AuthTokenHandler`** (`Omni.AutoApi.Client`): `DelegatingHandler` que anexa
+  `Authorization: Bearer …` aos clientes gerado e dinâmico, com token resolvido por callback.
+- **`global.json`** fixando o SDK (o sample MAUI tem o seu próprio, com SDK 11).
+- **`.editorconfig`** + verificação `dotnet format` no CI.
+- **`Microsoft.CodeAnalysis.PublicApiAnalyzers`**: a superfície pública passa a ser versionada em
+  `PublicAPI.Shipped.txt`/`PublicAPI.Unshipped.txt` — breaking change acidental vira erro de build.
+- **`CONTRIBUTING.md`**, **`SECURITY.md`**, **`ROADMAP.md`** e badges no README.
+- Sample com **fluxo JWT completo** (emissor de teste, `[Authorize]` e policy `todo:admin`).
+- **+20 testes (80 no total)**: versionamento E2E (6), `RouteOptions` E2E (5) e autenticação JWT (9,
+  incluindo o handler nos dois clientes).
 - **Validação automática**: DataAnnotations inválidas → 400 `ProblemDetails` (`ValidationError`,
   erros por campo) via `AutoApiValidationFilter` — estilo `AbpValidationActionFilter`.
 - **Upload**: `RemoteStreamContent` (Abstractions) + model binder no servidor + emissão

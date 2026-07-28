@@ -1,10 +1,11 @@
 # Roadmap — Omni.AutoApi
 
 Estado atual: **v0.1.0 publicada** ([`AndersonN.Omni.AutoApi.*`](https://www.nuget.org/packages/AndersonN.Omni.AutoApi.AspNetCore)),
-4 pacotes (`net9.0;net10.0` + gerador `netstandard2.0`), **60 testes** (42 unitários + 18 de
+4 pacotes (`net9.0;net10.0` + gerador `netstandard2.0`), **80 testes** (42 unitários + 38 de
 integração), CI verde e publicação via Trusted Publishing/OIDC.
 
-Este documento lista o que falta, em ordem de prioridade. A numeração (`R1`, `R2`, …) é estável:
+Este documento lista o que falta, em ordem de prioridade. Itens marcados **✅** já foram entregues
+(ver [CHANGELOG.md](CHANGELOG.md)). A numeração (`R1`, `R2`, …) é estável:
 use-a em issues e commits.
 
 ---
@@ -16,21 +17,21 @@ use-a em issues e commits.
 | # | Item | Tipo | Esforço |
 |---|------|------|---------|
 | R1 | Reservar o prefixo `AndersonN.*` no nuget.org | Higiene | 10 min |
-| R2 | `global.json` fixando o SDK | Débito técnico | 15 min |
-| R3 | Badges + seção de instalação no README | Adoção | 20 min |
+| ~~R2~~ ✅ | `global.json` fixando o SDK | Débito técnico | 15 min |
+| ~~R3~~ ✅ | Badges + seção de instalação no README | Adoção | 20 min |
 | R4 | Publicar o GitHub Release da v0.1.0 | Higiene | 15 min |
 
 ### P1 — Antes da v0.2 (qualidade e confiança)
 
 | # | Item | Tipo | Esforço |
 |---|------|------|---------|
-| R5 | Teste E2E de versionamento (`AddAutoApiVersioning` + `[ApiVersion]`) | Teste | 2–3 h |
-| R6 | Teste E2E de `RouteOptions` customizado no servidor | Teste | 1–2 h |
-| R7 | `PublicApiAnalyzers` — travar mudanças de API pública | Débito técnico | 2 h |
-| R8 | `.editorconfig` + `dotnet format` no CI | Débito técnico | 1–2 h |
-| R9 | `CONTRIBUTING.md` e `SECURITY.md` | Higiene | 1 h |
+| ~~R5~~ ✅ | Teste E2E de versionamento (`AddAutoApiVersioning` + `[ApiVersion]`) | Teste | 2–3 h |
+| ~~R6~~ ✅ | Teste E2E de `RouteOptions` customizado no servidor | Teste | 1–2 h |
+| ~~R7~~ ✅ | `PublicApiAnalyzers` — travar mudanças de API pública | Débito técnico | 2 h |
+| ~~R8~~ ✅ | `.editorconfig` + `dotnet format` no CI | Débito técnico | 1–2 h |
+| ~~R9~~ ✅ | `CONTRIBUTING.md` e `SECURITY.md` | Higiene | 1 h |
 | R10 | Dependabot (NuGet + Actions) | Higiene | 30 min |
-| R11 | Cenário de autenticação real documentado (JWT + policies) | Feature essencial | 3–4 h |
+| ~~R11~~ ✅ | Cenário de autenticação real documentado (JWT + policies) | Feature essencial | 3–4 h |
 
 ### P2 — v0.3 (produtividade e alcance)
 
@@ -76,7 +77,7 @@ pacotes publicados sob esse prefixo, a aprovação costuma ser direta.
 
 ---
 
-### R2 — `global.json` fixando o SDK
+### R2 — ✅ CONCLUÍDO — `global.json` fixando o SDK
 
 **Por quê.** Este é o débito mais arriscado hoje. A máquina de desenvolvimento usa **SDK 11 preview**
 e o CI usa **10.0.x** — o build depende de qual SDK estiver instalado. O source generator é
@@ -96,7 +97,7 @@ fora da solução principal e documentar que ele exige SDK 11.
 
 ---
 
-### R3 — Badges + seção de instalação no README
+### R3 — ✅ CONCLUÍDO — Badges + seção de instalação no README
 
 **Por quê.** O README documenta bem os conceitos, mas quem chega pela primeira vez não vê
 imediatamente: build passa? qual a versão publicada? Badges são o sinal de confiança padrão em OSS.
@@ -122,7 +123,7 @@ usa `contents: read` por princípio de menor privilégio; adicione a permissão 
 
 ---
 
-### R5 — Teste E2E de versionamento
+### R5 — ✅ CONCLUÍDO — Teste E2E de versionamento
 
 **Por quê.** `AddAutoApiVersioning` existe e compila, mas **nenhum teste exercita o caminho
 completo**. Não sabemos empiricamente se `[ApiVersion("2.0")]` num Application Service funciona com
@@ -137,7 +138,7 @@ silenciosamente (descoberto só quando escrevi o teste).
 
 ---
 
-### R6 — Teste E2E de `RouteOptions` customizado
+### R6 — ✅ CONCLUÍDO — Teste E2E de `RouteOptions` customizado
 
 **Por quê.** `RouteOptions` (prefixo, sufixos, kebab/camel) só é testado **unitariamente** no
 `ApiRouteBuilder`. Não há nenhuma requisição HTTP real contra um servidor configurado com prefixo
@@ -152,7 +153,7 @@ esperando 200. Idealmente também o cliente gerado com as mesmas opções via MS
 
 ---
 
-### R7 — `PublicApiAnalyzers`
+### R7 — ✅ CONCLUÍDO — `PublicApiAnalyzers`
 
 **Por quê.** A biblioteca tem ~25 tipos públicos e acabou de ser publicada. A partir de agora,
 qualquer mudança acidental de assinatura é um *breaking change* para quem instalou. O
@@ -167,7 +168,7 @@ commitar. O que estiver em `Unshipped` no momento da release move para `Shipped`
 
 ---
 
-### R8 — `.editorconfig` + `dotnet format` no CI
+### R8 — ✅ CONCLUÍDO — `.editorconfig` + `dotnet format` no CI
 
 **Por quê.** Não existe `.editorconfig`. Hoje o estilo é consistente porque uma única pessoa
 escreveu, mas isso não sobrevive ao primeiro contribuidor externo. Sem isso, PRs viram discussão de
@@ -180,7 +181,7 @@ formatação em vez de conteúdo.
 
 ---
 
-### R9 — `CONTRIBUTING.md` e `SECURITY.md`
+### R9 — ✅ CONCLUÍDO — `CONTRIBUTING.md` e `SECURITY.md`
 
 **Por quê.** São os dois arquivos que o GitHub exibe ativamente (botão "Contribute", aba "Security").
 Sem `SECURITY.md`, um pesquisador que encontre uma vulnerabilidade abre uma **issue pública**.
@@ -206,7 +207,7 @@ de patch para reduzir ruído.
 
 ---
 
-### R11 — Cenário de autenticação real documentado
+### R11 — ✅ CONCLUÍDO — Cenário de autenticação real documentado
 
 **Por quê.** Os testes provam que `[Authorize]` funciona (401/403) com um esquema *fake*. Falta o
 caminho que todo usuário real vai percorrer: **JWT Bearer + policies/roles**, e — do lado cliente —

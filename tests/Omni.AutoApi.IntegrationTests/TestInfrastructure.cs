@@ -1,12 +1,12 @@
 using System.Security.Claims;
 using System.Text.Encodings.Web;
-using Omni.AutoApi.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Omni.AutoApi.AspNetCore;
 
 namespace Omni.AutoApi.IntegrationTests;
 

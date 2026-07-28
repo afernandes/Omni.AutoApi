@@ -1,0 +1,34 @@
+#nullable enable
+Omni.AutoApi.AutoApiClientAttribute
+Omni.AutoApi.AutoApiClientAttribute.AutoApiClientAttribute() -> void
+Omni.AutoApi.AutoApiControllerAttribute
+Omni.AutoApi.AutoApiControllerAttribute.AutoApiControllerAttribute(string? route = null, string! groupName = "v1") -> void
+Omni.AutoApi.AutoApiControllerAttribute.GroupName.get -> string!
+Omni.AutoApi.AutoApiControllerAttribute.Route.get -> string?
+Omni.AutoApi.AutoApiGeneratedClientAttribute
+Omni.AutoApi.AutoApiGeneratedClientAttribute.AutoApiGeneratedClientAttribute() -> void
+Omni.AutoApi.IRemoteService
+Omni.AutoApi.RemoteStreamContent
+Omni.AutoApi.RemoteStreamContent.ContentType.get -> string?
+Omni.AutoApi.RemoteStreamContent.FileName.get -> string?
+Omni.AutoApi.RemoteStreamContent.Length.get -> long?
+Omni.AutoApi.RemoteStreamContent.RemoteStreamContent(System.IO.Stream! stream, string? fileName = null, string? contentType = null, long? length = null) -> void
+Omni.AutoApi.RemoteStreamContent.Stream.get -> System.IO.Stream!
+Omni.AutoApi.Routing.ApiRouteBuilder
+Omni.AutoApi.Routing.RouteOptions
+Omni.AutoApi.Routing.RouteOptions.ControllerPostfixes.get -> string![]!
+Omni.AutoApi.Routing.RouteOptions.ControllerPostfixes.set -> void
+Omni.AutoApi.Routing.RouteOptions.Prefix.get -> string!
+Omni.AutoApi.Routing.RouteOptions.Prefix.set -> void
+Omni.AutoApi.Routing.RouteOptions.RouteOptions() -> void
+Omni.AutoApi.Routing.RouteOptions.UseKebabCase.get -> bool
+Omni.AutoApi.Routing.RouteOptions.UseKebabCase.set -> void
+Omni.AutoApi.Routing.TypeHelper
+static Omni.AutoApi.Routing.ApiRouteBuilder.GetActionName(string! methodName, Omni.AutoApi.Routing.RouteOptions? options = null) -> string!
+static Omni.AutoApi.Routing.ApiRouteBuilder.GetApiServiceRoute(string! serviceName, string! action = "[action]", Omni.AutoApi.Routing.RouteOptions? options = null) -> string!
+static Omni.AutoApi.Routing.ApiRouteBuilder.GetApiServiceRouteFromInterface(string! interfaceName, string! action = "[action]", Omni.AutoApi.Routing.RouteOptions? options = null) -> string!
+static Omni.AutoApi.Routing.ApiRouteBuilder.GetControllerName(string! serviceName, Omni.AutoApi.Routing.RouteOptions? options = null) -> string!
+static Omni.AutoApi.Routing.ApiRouteBuilder.GetHttpMethod(string! methodName) -> string!
+static Omni.AutoApi.Routing.ApiRouteBuilder.GetHttpMethod(string! methodName, out bool usedFallback) -> string!
+static Omni.AutoApi.Routing.TypeHelper.IsPrimitiveExtended(System.Type! type, bool includeEnums = false) -> bool
+static readonly Omni.AutoApi.Routing.RouteOptions.Default -> Omni.AutoApi.Routing.RouteOptions!

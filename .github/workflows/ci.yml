@@ -18,10 +18,14 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'
+          global-json-file: global.json
 
       - name: Restore
         run: dotnet restore Omni.AutoApi.sln
+
+      # Falha se o código divergir do .editorconfig (rode `dotnet format` localmente).
+      - name: Format check
+        run: dotnet format Omni.AutoApi.sln --verify-no-changes --verbosity diagnostic
 
       - name: Build
         run: dotnet build Omni.AutoApi.sln -c Release --no-restore

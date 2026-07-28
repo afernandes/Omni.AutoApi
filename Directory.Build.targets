@@ -9,6 +9,12 @@
 
     <!-- SourceLink: liga os .snupkg ao código no GitHub (debug passo-a-passo do pacote). -->
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all" />
+
+    <!-- Trava a superfície pública: alterar a API sem atualizar PublicAPI.*.txt vira erro
+         de compilação (RS0016/RS0017), evitando breaking change acidental nos pacotes. -->
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all" />
+    <AdditionalFiles Include="PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
   </ItemGroup>
 
 </Project>

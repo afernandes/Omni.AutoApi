@@ -1,5 +1,8 @@
 using Asp.Versioning;
+using Asp.Versioning.ApplicationModels;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Omni.AutoApi.AspNetCore
 {
@@ -28,7 +31,22 @@ namespace Omni.AutoApi.AspNetCore
                 })
                 .AddMvc();
 
+            // Sem isto, o Asp.Versioning ignora os Auto API Controllers: ele só aplica
+            // versionamento a controllers que satisfaçam alguma IApiControllerSpecification
+            // (por padrão, os marcados com [ApiController]). Como os nossos são promovidos por
+            // convenção, precisamos declará-los — mesmo papel do
+            // AbpConventionalApiControllerSpecification no ABP.
+            services.TryAddEnumerable(
+                ServiceDescriptor.Transient<IApiControllerSpecification, AutoApiControllerSpecification>());
+
             return services;
         }
+    }
+
+    /// <summary>Faz o Asp.Versioning reconhecer os Auto API Controllers como controllers de API.</summary>
+    internal sealed class AutoApiControllerSpecification : IApiControllerSpecification
+    {
+        public bool IsSatisfiedBy(ControllerModel controller)
+            => AutoApiHelper.IsAutoApiController(controller.ControllerType);
     }
 }

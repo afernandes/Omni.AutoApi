@@ -22,6 +22,12 @@ namespace Omni.AutoApi.Sample.Web.Services
 
         Task DeleteTodoAsync(int id);
 
+        /// <summary>Exige token JWT válido (ver R11 no ROADMAP).</summary>
+        Task<TodoItem> CreateSecureTodoAsync(CreateTodoDto input);
+
+        /// <summary>Exige a policy "todo:admin".</summary>
+        Task DeleteAllTodosAsync();
+
         /// <summary>Upload (multipart/form-data) via RemoteStreamContent — funciona nos dois clientes.</summary>
         Task<string> CreateAttachmentAsync(RemoteStreamContent content);
 

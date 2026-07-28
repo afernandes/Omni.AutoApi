@@ -1,9 +1,9 @@
 using System.Net;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
 using Omni.AutoApi.Client;
 using Omni.AutoApi.Sample.Web;
 using Omni.AutoApi.Sample.Web.Services;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Omni.AutoApi.IntegrationTests;

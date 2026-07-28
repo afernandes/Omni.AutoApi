@@ -25,7 +25,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'
+          global-json-file: global.json
 
       # A tag é a fonte da verdade da versão (sobrepõe o <Version> do Directory.Build.props),
       # evitando publicar 0.1.0 ao criar a tag v0.2.0.

@@ -1,12 +1,25 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 using Omni.AutoApi.AspNetCore;
 using Omni.AutoApi.Sample.Web.Contracts;
 using Omni.AutoApi.Sample.Web.Models;
-using Microsoft.Extensions.Logging;
 
 namespace Omni.AutoApi.Sample.Web.Services
 {
     public class TodoApplicationService : ApplicationService, ITodoAppService
     {
+        /// <summary>
+        /// Exige token válido (R11). Leitura fica pública; escrita/remoção exigem autenticação —
+        /// os atributos padrão do ASP.NET Core funcionam normalmente nos Application Services.
+        /// </summary>
+        [Authorize]
+        public Task<TodoItem> CreateSecureTodoAsync(CreateTodoDto input)
+            => Task.FromResult(new TodoItem { Title = input.Title, IsCompleted = input.IsCompleted });
+
+        /// <summary>Exige a policy "todo:admin" (role admin).</summary>
+        [Authorize(Policy = "todo:admin")]
+        public Task DeleteAllTodosAsync() => Task.CompletedTask;
+
         public Task<List<TodoItem>> GetTodosAsync()
         {
             // Exercita a base enriquecida: Logger e CurrentUser vêm do LazyServiceProvider

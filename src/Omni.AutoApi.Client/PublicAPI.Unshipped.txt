@@ -1,0 +1,5 @@
+#nullable enable
+Omni.AutoApi.Client.AuthTokenHandler
+Omni.AutoApi.Client.AuthTokenHandler.AuthTokenHandler(System.Func<string?>! tokenProvider) -> void
+Omni.AutoApi.Client.AuthTokenHandler.AuthTokenHandler(System.Func<System.Threading.CancellationToken, System.Threading.Tasks.ValueTask<string?>>! tokenProvider) -> void
+override Omni.AutoApi.Client.AuthTokenHandler.SendAsync(System.Net.Http.HttpRequestMessage! request, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage!>!

@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Text.Json;
-using Omni.AutoApi.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using Omni.AutoApi.Routing;
 
 namespace Omni.AutoApi.Client
 {

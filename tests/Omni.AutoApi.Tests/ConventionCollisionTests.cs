@@ -1,6 +1,6 @@
 using System.Reflection;
-using Omni.AutoApi.AspNetCore;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Omni.AutoApi.AspNetCore;
 using Xunit;
 
 namespace Omni.AutoApi.Tests;
