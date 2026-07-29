@@ -6,7 +6,7 @@ namespace Omni.AutoApi.AspNetCore
     /// <summary>
     /// Classe base opcional para serviços de aplicação. Implementa <see cref="IRemoteService"/>
     /// (a classe é exposta automaticamente como Auto API Controller) e expõe helpers resolvidos
-    /// sob demanda via <see cref="LazyServices"/> — injetado pelo <see cref="AutoApiControllerActivator"/>.
+    /// sob demanda via <see cref="LazyServices"/> — injetado pelo LazyServicesActionFilter.
     /// </summary>
     public abstract class ApplicationService : IRemoteService
     {

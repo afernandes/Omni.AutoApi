@@ -15,7 +15,7 @@ public class EndToEndTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task Normal_mvc_controller_works_under_custom_activator()
     {
-        // WeatherForecastController tem ctor com ILogger -> valida que o AutoApiControllerActivator
+        // WeatherForecastController tem ctor com ILogger -> valida que o pipeline do Omni.AutoApi
         // não quebra a criação de controllers normais.
         var response = await _factory.CreateClient().GetAsync("/WeatherForecast");
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);

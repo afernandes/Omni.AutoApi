@@ -45,6 +45,9 @@ namespace Omni.AutoApi.AspNetCore
                 options.Conventions.Add(new AutoApiControllerConvention(
                     routeOptions, loggerFactory.CreateLogger<AutoApiControllerConvention>()));
 
+                // Injeta o LazyServices nos ApplicationService (Logger/CurrentUser sem construtor).
+                options.Filters.Add<LazyServicesActionFilter>();
+
                 // Validação (400 ProblemDetails) roda antes da action; exceções depois.
                 options.Filters.Add<AutoApiValidationFilter>();
                 options.Filters.Add<AutoApiExceptionFilter>();
@@ -67,9 +70,8 @@ namespace Omni.AutoApi.AspNetCore
             // Enriquece (não recria) as descrições reais geradas pelo pipeline MVC.
             services.AddTransient<IApiDescriptionProvider, AutoApiResponseEnrichmentProvider>();
 
-            // Ativador que injeta o LazyServiceProvider nos ApplicationService.
-            // Registrado com Add (após AddControllers) para sobrescrever o ativador padrão.
-            services.AddTransient<Microsoft.AspNetCore.Mvc.Controllers.IControllerActivator, AutoApiControllerActivator>();
+            // Nota: NÃO substituímos o IControllerActivator do MVC. O LazyServices é injetado pelo
+            // LazyServicesActionFilter acima — ver o porquê no XML doc daquela classe.
 
             return services;
         }

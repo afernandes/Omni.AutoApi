@@ -1,7 +1,7 @@
 # Roadmap — Omni.AutoApi
 
 Estado atual: **v0.1.0 publicada** ([`AndersonN.Omni.AutoApi.*`](https://www.nuget.org/packages/AndersonN.Omni.AutoApi.AspNetCore)),
-4 pacotes (`net9.0;net10.0` + gerador `netstandard2.0`), **107 testes** (53 unitários + 54 de
+4 pacotes (`net9.0;net10.0` + gerador `netstandard2.0`), **115 testes** (53 unitários + 62 de
 integração), CI verde e publicação via Trusted Publishing/OIDC.
 
 Este documento lista o que falta, em ordem de prioridade. Itens marcados **✅** já foram entregues
@@ -42,7 +42,7 @@ use-a em issues e commits.
 | ~~R14~~ ✅ | Analisador de uso (erros em compile-time, não no startup) | Feature | 1–2 dias |
 | R15 | Central Package Management (`Directory.Packages.props`) | Débito técnico | 1–2 h |
 | R16 | Cobertura de código no CI (coverlet + relatório) | Teste | 2 h |
-| R17 | Teste do ciclo de vida do `AutoApiControllerActivator` | Teste | 1–2 h |
+| ~~R17~~ ✅ | Teste do ciclo de vida do ativador de controllers | Teste | 1–2 h |
 | R18 | Template `dotnet new autoapi` | DX | 1 dia |
 
 ### P3 — Futuro / caminho para a v1.0
@@ -288,7 +288,7 @@ publicação do relatório (Codecov ou artefato do ReportGenerator). Definir um 
 
 ---
 
-### R17 — Teste do ciclo de vida do activator
+### R17 — ✅ CONCLUÍDO — Teste do ciclo de vida do activator
 
 **Por quê.** O `AutoApiControllerActivator` **substitui o ativador padrão do MVC** — é o ponto mais
 invasivo da biblioteca. Testamos que controllers são *criados* (inclusive os normais, como o

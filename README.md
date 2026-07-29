@@ -132,8 +132,8 @@ builder.Services.AddTodoAppServiceClient((_, http) => http.BaseAddress = new Uri
 
 ## Recursos do servidor
 
-**Base `ApplicationService` enriquecida** — helpers resolvidos sob demanda (injetados por um
-`IControllerActivator` próprio), sem construtor:
+**Base `ApplicationService` enriquecida** — helpers resolvidos sob demanda (injetados por um filtro
+do MVC, sem substituir o ativador de controllers), sem construtor:
 
 ```csharp
 public Task<List<TodoItem>> GetTodosAsync()

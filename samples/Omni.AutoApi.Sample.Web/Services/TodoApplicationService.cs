@@ -23,7 +23,7 @@ namespace Omni.AutoApi.Sample.Web.Services
         public Task<List<TodoItem>> GetTodosAsync()
         {
             // Exercita a base enriquecida: Logger e CurrentUser vêm do LazyServiceProvider
-            // injetado pelo AutoApiControllerActivator (sem construtor).
+            // injetado pelo LazyServicesActionFilter (sem construtor).
             Logger.LogInformation("Listando todos. Autenticado: {Auth}", CurrentUser.IsAuthenticated);
 
             var todos = new List<TodoItem>

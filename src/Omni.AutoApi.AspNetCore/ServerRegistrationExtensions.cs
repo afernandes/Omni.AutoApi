@@ -10,7 +10,7 @@ namespace Omni.AutoApi.AspNetCore
     /// além da exposição HTTP que o <c>AddAutoApiServices</c> já faz.
     /// <para>
     /// Sem isto, resolver o serviço direto do container devolve uma instância criada pelo DI — e
-    /// não pelo <see cref="AutoApiControllerActivator"/> —, deixando <c>LazyServices</c> nulo: o
+    /// e não pelo pipeline MVC —, deixando <c>LazyServices</c> nulo: o
     /// <c>Logger</c> vira <c>NullLogger</c> silenciosamente e <c>CurrentUser</c>/
     /// <c>GetRequiredService</c> lançam. Estas extensões preenchem o <c>LazyServices</c>, então o
     /// serviço se comporta igual chamado por HTTP ou localmente.

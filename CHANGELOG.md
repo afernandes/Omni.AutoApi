@@ -6,6 +6,17 @@ versionamento [SemVer](https://semver.org).
 ## [Unreleased]
 
 ### Corrigido (crítico)
+- **`LazyServices` deixava de ser injetado ao usar `AddControllersAsServices()`.** A biblioteca
+  substituía o `IControllerActivator` do MVC — um serviço **único**, em que vence quem registra por
+  último. Recursos padrão como `AddControllersAsServices()` também o substituem, então bastava
+  chamá-lo depois de `AddAutoApiServices()` para a injeção parar silenciosamente: `Logger` virava
+  `NullLogger` e `CurrentUser`/`GetRequiredService` lançavam, com o comportamento dependendo da
+  **ordem de registro**. O `AutoApiControllerActivator` foi removido em favor de um
+  `LazyServicesActionFilter`, que roda independentemente de quem criou o controller — e devolve ao
+  MVC o seu ativador padrão, com cache de construtor e descarte já corretos.
+  > Nota: `AddControllersAsServices()` continua exigindo ser chamado **depois** de
+  > `AddAutoApiServices()` — ele fotografa os controllers conhecidos no momento da chamada
+  > (limitação do próprio MVC). Na ordem inversa a falha agora é explícita (500), não silenciosa.
 - **O endpoint de definição colapsava versões.** Ele deduplicava por `verbo + rota`; como a versão
   viaja em query/header (e não na URL), v1 e v2 da mesma ação compartilham verbo e rota — a v2
   simplesmente sumia da definição. A versão passou a fazer parte da chave.
