@@ -1,7 +1,7 @@
 # Roadmap — Omni.AutoApi
 
 Estado atual: **v0.1.0 publicada** ([`AndersonN.Omni.AutoApi.*`](https://www.nuget.org/packages/AndersonN.Omni.AutoApi.AspNetCore)),
-4 pacotes (`net9.0;net10.0` + gerador `netstandard2.0`), **80 testes** (42 unitários + 38 de
+4 pacotes (`net9.0;net10.0` + gerador `netstandard2.0`), **87 testes** (42 unitários + 45 de
 integração), CI verde e publicação via Trusted Publishing/OIDC.
 
 Este documento lista o que falta, em ordem de prioridade. Itens marcados **✅** já foram entregues
@@ -37,7 +37,7 @@ use-a em issues e commits.
 
 | # | Item | Tipo | Esforço |
 |---|------|------|---------|
-| R12 | `AddAutoApiServer<T>()` — controller + in-process numa chamada | Feature | 2–3 h |
+| ~~R12~~ ✅ | `AddAutoApiServer<T>()` — controller + in-process numa chamada | Feature | 2–3 h |
 | R13 | Documentos OpenAPI por versão de API | Feature | 4–6 h |
 | R14 | Analisador de uso (erros em compile-time, não no startup) | Feature | 1–2 dias |
 | R15 | Central Package Management (`Directory.Packages.props`) | Débito técnico | 1–2 h |
@@ -222,7 +222,7 @@ token válido/inválido/sem permissão. Seção dedicada no README.
 
 ---
 
-### R12 — `AddAutoApiServer<T>()`
+### R12 — ✅ CONCLUÍDO — `AddAutoApiServer<T>()`
 
 **Por quê.** Hoje, para usar o serviço **in-process** no servidor (padrão do Blazor Server), é preciso
 registrar duas coisas: `AddAutoApiServices()` e `AddScoped<ITodoAppService, TodoApplicationService>()`.

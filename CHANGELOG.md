@@ -6,6 +6,8 @@ versionamento [SemVer](https://semver.org).
 ## [Unreleased]
 
 ### Corrigido (crítico)
+- **`AddAutoApiServices` agora é idempotente.** Uma segunda chamada duplicava convenção, filtros e
+  feature provider — cada ação ganhava dois selectors e o startup falhava com rota duplicada.
 - **`AddAutoApiVersioning` não funcionava**: o `Asp.Versioning` só aplica versionamento a
   controllers que satisfaçam alguma `IApiControllerSpecification` (por padrão, os marcados com
   `[ApiController]`). Como os Auto API Controllers são promovidos por convenção, ficavam de fora —
@@ -15,6 +17,12 @@ versionamento [SemVer](https://semver.org).
   `AbpConventionalApiControllerSpecification` no ABP. Descoberto pelos testes E2E de versionamento.
 
 ### Adicionado
+- **`AddAutoApiServer<TService, TImplementation>()`** e **`AddAutoApiServers(assembly)`**
+  (`Omni.AutoApi.AspNetCore`): registram o Application Service para uso **in-process** (Blazor
+  Server, jobs, testes) além da exposição HTTP. Diferente de um `AddScoped` manual, injetam o
+  `LazyServices` — sem isso, resolver o serviço pelo container deixava `Logger` como `NullLogger`
+  silenciosamente e fazia `CurrentUser`/`GetRequiredService` lançarem. O overload por assembly
+  ignora clientes gerados (`[AutoApiGeneratedClient]`), que implementam a mesma interface.
 - **`AuthTokenHandler`** (`Omni.AutoApi.Client`): `DelegatingHandler` que anexa
   `Authorization: Bearer …` aos clientes gerado e dinâmico, com token resolvido por callback.
 - **`global.json`** fixando o SDK (o sample MAUI tem o seu próprio, com SDK 11).

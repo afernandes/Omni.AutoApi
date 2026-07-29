@@ -9,14 +9,32 @@ namespace Omni.AutoApi.AspNetCore
 {
     public static class ServiceCollectionExtensions
     {
+        /// <summary>Marcador interno usado para tornar <c>AddAutoApiServices</c> idempotente.</summary>
+        private sealed class AutoApiRegistrationMarker;
+
         /// <summary>
         /// Registra o mecanismo Auto API: descobre IRemoteService, cria controllers reais,
         /// enriquece o ApiExplorer e instala a base de serviços (ProblemDetails, current user).
+        /// <para>
+        /// É <b>idempotente</b>: chamadas repetidas são ignoradas (a primeira vence, inclusive
+        /// quanto ao <paramref name="configureRoutes"/>). Sem essa guarda, uma segunda chamada
+        /// duplicaria convenção, filtros e feature provider — o sintoma seria uma falha de rota
+        /// duplicada no startup.
+        /// </para>
         /// </summary>
         public static IServiceCollection AddAutoApiServices(
             this IServiceCollection services,
             Action<RouteOptions>? configureRoutes = null)
         {
+            ArgumentNullException.ThrowIfNull(services);
+
+            if (services.Any(d => d.ServiceType == typeof(AutoApiRegistrationMarker)))
+            {
+                return services;
+            }
+
+            services.AddSingleton<AutoApiRegistrationMarker>();
+
             var routeOptions = new RouteOptions();
             configureRoutes?.Invoke(routeOptions);
             services.AddSingleton(routeOptions);

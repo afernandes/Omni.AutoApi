@@ -14,10 +14,12 @@ builder.Services.AddRazorComponents()
 // Add device-specific services used by the SharedApp.Shared project
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
 
-// Omni.AutoApi: expõe o TodoApplicationService como Auto API Controller (HTTP, para WASM/MAUI)...
+// Omni.AutoApi: expõe o TodoApplicationService como Auto API Controller (HTTP, para WASM/MAUI)
+// e o disponibiliza in-process para o render server-side do Blazor — uma linha por serviço.
+// Diferente de um AddScoped manual, isto também injeta o LazyServices, então Logger/CurrentUser
+// funcionam igual no caminho in-process e no HTTP.
 builder.Services.AddAutoApiServices();
-// ...e o disponibiliza in-process para o render server-side do Blazor (mesma interface).
-builder.Services.AddScoped<ITodoAppService, TodoApplicationService>();
+builder.Services.AddAutoApiServer<ITodoAppService, TodoApplicationService>();
 
 var app = builder.Build();
 

@@ -7,8 +7,10 @@ Obrigado pelo interesse! Este guia cobre o essencial para uma contribuição ent
 - **.NET SDK 10** — a versão exata está fixada em [`global.json`](global.json). Não altere esse
   arquivo num PR de feature; o CI usa exatamente o que está ali.
 - O sample [`samples/BlazorMauiAuto`](samples/BlazorMauiAuto) exige **SDK 11 + workloads MAUI** e
-  tem `global.json` próprio. Ele **não** faz parte de `Omni.AutoApi.sln` — abra
-  `samples/BlazorMauiAuto/SharedApp.sln` separadamente.
+  tem `global.json` próprio. Ele **não** faz parte de `Omni.AutoApi.sln`.
+  > O `global.json` é resolvido a partir do **diretório atual**, não do `.csproj`. Para compilar
+  > esse sample é preciso entrar na pasta primeiro (`cd samples/BlazorMauiAuto`); rodar
+  > `dotnet build samples/BlazorMauiAuto/...` da raiz usa o SDK 10 e falha com `NETSDK1045`.
 
 ## Ciclo de desenvolvimento
 

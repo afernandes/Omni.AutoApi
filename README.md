@@ -77,6 +77,19 @@ app.MapControllers();
 app.MapAutoApiDefinition();               // (opcional) /api/auto-api/definition
 ```
 
+**Usando o serviço in-process** (Blazor Server, jobs, testes) — além do endpoint HTTP:
+
+```csharp
+builder.Services.AddAutoApiServer<ITodoAppService, TodoApplicationService>();
+// ou, para todos os IRemoteService de um assembly:
+builder.Services.AddAutoApiServers(typeof(TodoApplicationService).Assembly);
+```
+
+Prefira isso a um `AddScoped` manual: além de registrar, ele injeta o `LazyServices`, então
+`Logger`/`CurrentUser`/`GetRequiredService` funcionam igual no caminho in-process e no HTTP (com
+`AddScoped` puro, `Logger` viraria `NullLogger` silenciosamente e `CurrentUser` lançaria). Também
+garante que o assembly do serviço seja varrido, caso ele more numa class library.
+
 Convenções: verbo pelo prefixo do método (`Get/Create/Update/Delete/Patch`), rota kebab-case, tipos
 simples → query, DTO complexo → body (exceto GET/DELETE). `[Http*]`/`[Route]`/`[From*]` explícitos são
 respeitados, e **colisões de rota** (sobrecargas) falham no startup com mensagem clara.
