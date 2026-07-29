@@ -213,11 +213,40 @@ builder.Services.AddAutoApiServices(o => { o.Prefix = "api/services"; o.UseKebab
 </PropertyGroup>
 ```
 
-**Versionamento** opt-in (não altera o OpenAPI padrão; lê versão por query `?api-version=` / header):
+**Versionamento** opt-in — lê a versão por query (`?api-version=2.0`) ou header (`X-Api-Version`),
+sem mudar a rota:
 
 ```csharp
-builder.Services.AddAutoApiVersioning();   // depois use [ApiVersion("2.0")] no Application Service
+builder.Services.AddAutoApiVersioning();
 ```
+```csharp
+[ApiVersion("1.0")]
+[ApiVersion("2.0")]
+public class CatalogAppService : ApplicationService
+{
+    public Task<string> GetNameAsync() => ...;                       // nas duas versões
+
+    [MapToApiVersion("1.0")] public Task<string> GetLegacyCodeAsync() => ...;   // só v1
+    [MapToApiVersion("2.0")] public Task<Summary> GetSummaryAsync() => ...;     // só v2
+}
+```
+
+**Um documento OpenAPI por versão** — `DiscoverApiDocumentNames` lê os `[ApiVersion]` e devolve
+`["v1", "v2"]`, então a biblioteca não precisa depender de um pacote de OpenAPI específico (o mesmo
+laço serve para `AddOpenApi` nativo, Swashbuckle ou NSwag):
+
+```csharp
+foreach (var doc in ApiVersioningExtensions.DiscoverApiDocumentNames())
+{
+    builder.Services.AddOpenApi(doc);      // /openapi/v1.json e /openapi/v2.json
+}
+```
+
+O endpoint de definição também fica ciente de versão: cada ação traz `apiVersion`, o documento lista
+`apiVersions`, e `?apiVersion=v2` filtra a definição para gerar um cliente só da v2.
+
+> Para ajustar o ApiExplorer (ex.: formato do nome do documento), use o options pattern:
+> `services.Configure<ApiExplorerOptions>(o => o.GroupNameFormat = "'v'VV");`
 
 ## Exemplos (`samples/`)
 

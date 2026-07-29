@@ -1,7 +1,7 @@
 # Roadmap — Omni.AutoApi
 
 Estado atual: **v0.1.0 publicada** ([`AndersonN.Omni.AutoApi.*`](https://www.nuget.org/packages/AndersonN.Omni.AutoApi.AspNetCore)),
-4 pacotes (`net9.0;net10.0` + gerador `netstandard2.0`), **87 testes** (42 unitários + 45 de
+4 pacotes (`net9.0;net10.0` + gerador `netstandard2.0`), **96 testes** (42 unitários + 54 de
 integração), CI verde e publicação via Trusted Publishing/OIDC.
 
 Este documento lista o que falta, em ordem de prioridade. Itens marcados **✅** já foram entregues
@@ -38,7 +38,7 @@ use-a em issues e commits.
 | # | Item | Tipo | Esforço |
 |---|------|------|---------|
 | ~~R12~~ ✅ | `AddAutoApiServer<T>()` — controller + in-process numa chamada | Feature | 2–3 h |
-| R13 | Documentos OpenAPI por versão de API | Feature | 4–6 h |
+| ~~R13~~ ✅ | Documentos OpenAPI por versão de API | Feature | 4–6 h |
 | R14 | Analisador de uso (erros em compile-time, não no startup) | Feature | 1–2 dias |
 | R15 | Central Package Management (`Directory.Packages.props`) | Débito técnico | 1–2 h |
 | R16 | Cobertura de código no CI (coverlet + relatório) | Teste | 2 h |
@@ -235,7 +235,7 @@ implementação e garantindo a exposição como controller. Analisar se vale um 
 
 ---
 
-### R13 — OpenAPI por versão
+### R13 — ✅ CONCLUÍDO — OpenAPI por versão
 
 **Por quê.** Complementa o R5. Com versionamento ativo, hoje sai **um único documento** OpenAPI
 misturando versões. O consumidor não consegue gerar um cliente só da v2.

@@ -21,12 +21,23 @@ namespace Omni.AutoApi.AspNetCore
         public string Action { get; set; } = string.Empty;
         public string HttpMethod { get; set; } = string.Empty;
         public string Route { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Documento/versão a que a ação pertence (<c>v1</c>, <c>v2</c>, …), ou <c>null</c> quando
+        /// o versionamento não está ativo. Como a versão viaja em query/header, duas versões da
+        /// mesma ação compartilham verbo e rota — este campo é o que as distingue.
+        /// </summary>
+        public string? ApiVersion { get; set; }
+
         public string? ReturnType { get; set; }
         public List<AutoApiParameterModel> Parameters { get; set; } = new();
     }
 
     public sealed class AutoApiDefinitionModel
     {
+        /// <summary>Versões disponíveis (vazio quando o versionamento não está ativo).</summary>
+        public List<string> ApiVersions { get; set; } = new();
+
         public List<AutoApiActionModel> Actions { get; set; } = new();
     }
 
@@ -41,15 +52,30 @@ namespace Omni.AutoApi.AspNetCore
     /// </summary>
     public static class AutoApiDefinitionEndpoint
     {
+        /// <summary>
+        /// Mapeia o endpoint. Aceita <c>?api-version=v2</c> (nome do documento) para filtrar a
+        /// definição a uma única versão — útil para gerar um cliente só da v2.
+        /// </summary>
         public static IEndpointConventionBuilder MapAutoApiDefinition(
             this IEndpointRouteBuilder endpoints,
             string pattern = "/api/auto-api/definition")
         {
             return endpoints.MapGet(pattern,
-                (IApiDescriptionGroupCollectionProvider provider) => Results.Ok(Build(provider)));
+                (IApiDescriptionGroupCollectionProvider provider, string? apiVersion) =>
+                    Results.Ok(Build(provider, apiVersion)));
         }
 
         public static AutoApiDefinitionModel Build(IApiDescriptionGroupCollectionProvider provider)
+            => Build(provider, apiVersion: null);
+
+        /// <summary>Monta a definição, opcionalmente restrita a uma versão.</summary>
+        /// <param name="provider">Fonte das descrições reais geradas pelo pipeline MVC.</param>
+        /// <param name="apiVersion">
+        /// Nome do documento (<c>v1</c>, <c>v2</c>) para filtrar; <c>null</c> devolve todas.
+        /// </param>
+        public static AutoApiDefinitionModel Build(
+            IApiDescriptionGroupCollectionProvider provider,
+            string? apiVersion)
         {
             var model = new AutoApiDefinitionModel();
 
@@ -63,12 +89,23 @@ namespace Omni.AutoApi.AspNetCore
                         continue;
                     }
 
+                    // Com o Asp.Versioning + ApiExplorer, o GroupName vira "v1"/"v2"; sem
+                    // versionamento, fica nulo.
+                    var versao = description.GroupName;
+
+                    if (apiVersion is not null
+                        && !string.Equals(versao, apiVersion, StringComparison.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
+
                     model.Actions.Add(new AutoApiActionModel
                     {
                         Controller = descriptor.ControllerName,
                         Action = descriptor.ActionName,
                         HttpMethod = description.HttpMethod ?? "POST",
                         Route = "/" + (description.RelativePath ?? string.Empty).TrimStart('/'),
+                        ApiVersion = versao,
                         ReturnType = TypeName(description.SupportedResponseTypes
                             .FirstOrDefault(r => r.Type != null && r.Type != typeof(void))?.Type),
                         Parameters = description.ParameterDescriptions.Select(p => new AutoApiParameterModel
@@ -82,12 +119,20 @@ namespace Omni.AutoApi.AspNetCore
                 }
             }
 
-            // Com versionamento ligado, a mesma ação aparece em vários grupos do ApiExplorer;
-            // deduplica por (verbo + rota) para não retornar entradas repetidas.
+            // Deduplica por (versão + verbo + rota). A VERSÃO É PARTE DA CHAVE de propósito:
+            // como ela viaja em query/header e não na URL, v1 e v2 da mesma ação compartilham
+            // verbo e rota — deduplicar só por (verbo + rota) faria a v2 sumir da definição.
             model.Actions = model.Actions
-                .GroupBy(a => $"{a.HttpMethod} {a.Route}")
+                .GroupBy(a => $"{a.ApiVersion}|{a.HttpMethod} {a.Route}")
                 .Select(g => g.First())
                 .ToList();
+
+            model.ApiVersions = model.Actions
+                .Select(a => a.ApiVersion)
+                .Where(v => !string.IsNullOrEmpty(v))
+                .Distinct()
+                .OrderBy(v => v, StringComparer.OrdinalIgnoreCase)
+                .ToList()!;
 
             return model;
         }

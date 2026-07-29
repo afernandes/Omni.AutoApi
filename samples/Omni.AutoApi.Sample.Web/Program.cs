@@ -19,7 +19,24 @@ namespace Omni.AutoApi.Sample.Web
             // Application Services (o metadata é preservado pela convenção).
             builder.Services.AddSampleJwtAuth();
 
-            builder.Services.AddOpenApi();
+            // Versionamento (opt-in) + UM DOCUMENTO OPENAPI POR VERSÃO.
+            // DiscoverApiDocumentNames lê os [ApiVersion] dos Application Services, então a
+            // biblioteca não precisa depender de um pacote de OpenAPI específico — o mesmo laço
+            // serve para AddOpenApi nativo, Swashbuckle ou NSwag.
+            builder.Services.AddAutoApiVersioning();
+
+            var documentos = ApiVersioningExtensions.DiscoverApiDocumentNames(typeof(Program).Assembly);
+            if (documentos.Count == 0)
+            {
+                builder.Services.AddOpenApi();          // sem [ApiVersion]: documento único
+            }
+            else
+            {
+                foreach (var documento in documentos)
+                {
+                    builder.Services.AddOpenApi(documento);   // /openapi/v1.json, /openapi/v2.json
+                }
+            }
 
             // Lado cliente (opcional). Duas formas equivalentes de obter um ITodoAppService:
             //
@@ -48,7 +65,11 @@ namespace Omni.AutoApi.Sample.Web
 
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/openapi/v1.json", "Auto Api Controller");
+                // Um item no seletor da UI por versão descoberta.
+                foreach (var documento in documentos.Count > 0 ? documentos : new[] { "v1" })
+                {
+                    options.SwaggerEndpoint($"/openapi/{documento}.json", $"Omni.AutoApi {documento}");
+                }
             });
 
             app.MapScalarApiReference("/scalar", options =>

@@ -6,6 +6,9 @@ versionamento [SemVer](https://semver.org).
 ## [Unreleased]
 
 ### Corrigido (crítico)
+- **O endpoint de definição colapsava versões.** Ele deduplicava por `verbo + rota`; como a versão
+  viaja em query/header (e não na URL), v1 e v2 da mesma ação compartilham verbo e rota — a v2
+  simplesmente sumia da definição. A versão passou a fazer parte da chave.
 - **`AddAutoApiServices` agora é idempotente.** Uma segunda chamada duplicava convenção, filtros e
   feature provider — cada ação ganhava dois selectors e o startup falhava com rota duplicada.
 - **`AddAutoApiVersioning` não funcionava**: o `Asp.Versioning` só aplica versionamento a
@@ -17,6 +20,12 @@ versionamento [SemVer](https://semver.org).
   `AbpConventionalApiControllerSpecification` no ABP. Descoberto pelos testes E2E de versionamento.
 
 ### Adicionado
+- **Um documento OpenAPI por versão de API.** `AddAutoApiVersioning` passa a configurar o
+  `ApiExplorer` (`GroupNameFormat = "'v'VVV"`), e `ApiVersioningExtensions.DiscoverApiDocumentNames()`
+  descobre os nomes (`v1`, `v2`, …) a partir dos `[ApiVersion]` — de propósito **sem** acoplar a
+  biblioteca a um pacote de OpenAPI: o mesmo laço serve para `AddOpenApi` nativo, Swashbuckle ou
+  NSwag. O endpoint de definição ganhou `apiVersion` por ação, a lista `apiVersions` e o filtro
+  `?apiVersion=v2`.
 - **`AddAutoApiServer<TService, TImplementation>()`** e **`AddAutoApiServers(assembly)`**
   (`Omni.AutoApi.AspNetCore`): registram o Application Service para uso **in-process** (Blazor
   Server, jobs, testes) além da exposição HTTP. Diferente de um `AddScoped` manual, injetam o

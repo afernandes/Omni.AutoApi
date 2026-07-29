@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.1" />
+    <!-- Necessário para agrupar as ApiDescriptions por versão (um documento OpenAPI por versão). -->
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.1" />
   </ItemGroup>
 
   <ItemGroup>
