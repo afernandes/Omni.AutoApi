@@ -21,6 +21,8 @@
     <ProjectReference Include="..\..\src\Omni.AutoApi.AspNetCore\Omni.AutoApi.AspNetCore.csproj" />
     <!-- Alias para isolar as cópias linkadas (ApiRouteBuilder/RouteOptions) do gerador. -->
     <ProjectReference Include="..\..\src\Omni.AutoApi.Client.SourceGenerator\Omni.AutoApi.Client.SourceGenerator.csproj" Aliases="gen" />
+    <!-- Idem para o analisador de uso (também linka ApiRouteBuilder). -->
+    <ProjectReference Include="..\..\src\Omni.AutoApi.Analyzers\Omni.AutoApi.Analyzers.csproj" Aliases="analyzers" />
   </ItemGroup>
 
 </Project>

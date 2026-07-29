@@ -248,6 +248,29 @@ O endpoint de definição também fica ciente de versão: cada ação traz `apiV
 > Para ajustar o ApiExplorer (ex.: formato do nome do documento), use o options pattern:
 > `services.Configure<ApiExplorerOptions>(o => o.GroupNameFormat = "'v'VV");`
 
+## Diagnósticos em tempo de compilação
+
+O pacote `AspNetCore` traz um analisador que antecipa para a digitação erros que só apareceriam
+**no startup** — sem instalar nada a mais:
+
+| ID | Severidade | O que pega |
+|---|---|---|
+| `AUTOAPI002` | Warning | Sobrecarga (ou par `Foo`/`FooAsync`) que gera **rota duplicada** — hoje derruba a aplicação ao iniciar |
+| `AUTOAPI003` | Warning | Mais de um **parâmetro complexo** em verbo com corpo — o MVC só aceita um `[FromBody]` |
+| `AUTOAPI004` | Info | Método **não assíncrono**: o endpoint funciona, mas os clientes tipados não o implementam |
+
+```csharp
+public class TodoAppService : ApplicationService
+{
+    public Task<Todo> GetTodoAsync(int id) => ...;
+    public Task<Todo> GetTodoAsync(string slug) => ...;   // ⚠ AUTOAPI002: mesma rota GET /get-todo
+}
+```
+
+Do lado cliente, o `AUTOAPI001` (source generator) já sinaliza métodos que ele não consegue gerar.
+Para ajustar a severidade, use o `.editorconfig`:
+`dotnet_diagnostic.AUTOAPI004.severity = none`.
+
 ## Exemplos (`samples/`)
 
 | Exemplo | O que mostra |

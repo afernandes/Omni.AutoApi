@@ -22,6 +22,20 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Omni.AutoApi.Abstractions\Omni.AutoApi.Abstractions.csproj" />
+
+    <!-- O analisador de uso viaja DENTRO deste pacote: quem usa o lado servidor recebe os
+         diagnósticos AUTOAPI002/003/004 sem instalar nada a mais.
+         ReferenceOutputAssembly=false + PrivateAssets=all => não vira dependência do pacote;
+         OutputItemType=Analyzer => também roda ao compilar este projeto (dogfooding). -->
+    <ProjectReference Include="..\Omni.AutoApi.Analyzers\Omni.AutoApi.Analyzers.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false"
+                      PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Omni.AutoApi.Analyzers\bin\$(Configuration)\netstandard2.0\Omni.AutoApi.Analyzers.dll"
+          Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
 
 </Project>

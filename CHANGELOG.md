@@ -20,6 +20,13 @@ versionamento [SemVer](https://semver.org).
   `AbpConventionalApiControllerSpecification` no ABP. Descoberto pelos testes E2E de versionamento.
 
 ### Adicionado
+- **Analisador de uso** (`AUTOAPI002`/`003`/`004`), empacotado **dentro** de
+  `Omni.AutoApi.AspNetCore` — quem usa o lado servidor recebe os diagnósticos sem instalar nada a
+  mais. Antecipa para a compilação erros que só apareciam no startup: sobrecarga gerando rota
+  duplicada (inclusive o par `Foo`/`FooAsync`, que deriva a mesma rota), mais de um parâmetro
+  complexo em verbo com corpo, e (informativo) métodos não assíncronos, que os clientes tipados não
+  implementam. O analisador reaproveita o mesmo `ApiRouteBuilder` do runtime, então a rota que ele
+  calcula é a que a convenção realmente usará.
 - **Um documento OpenAPI por versão de API.** `AddAutoApiVersioning` passa a configurar o
   `ApiExplorer` (`GroupNameFormat = "'v'VVV"`), e `ApiVersioningExtensions.DiscoverApiDocumentNames()`
   descobre os nomes (`v1`, `v2`, …) a partir dos `[ApiVersion]` — de propósito **sem** acoplar a

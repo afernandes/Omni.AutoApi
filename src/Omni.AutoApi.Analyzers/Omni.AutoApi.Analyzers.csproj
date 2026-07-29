@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    <!-- Não é um pacote próprio: o .dll é empacotado DENTRO de Omni.AutoApi.AspNetCore, para
+         que quem usa o lado servidor receba os diagnósticos sem instalar nada a mais. -->
+    <IsPackable>false</IsPackable>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- Release tracking dos diagnósticos (RS2008). -->
+  <ItemGroup>
+    <AdditionalFiles Include="AnalyzerReleases.Shipped.md" />
+    <AdditionalFiles Include="AnalyzerReleases.Unshipped.md" />
+  </ItemGroup>
+
+  <!-- Reaproveita a MESMA lógica de rota/verbo do runtime: o analisador precisa derivar a rota
+       exatamente como a convenção fará em tempo de execução. -->
+  <ItemGroup>
+    <Compile Include="..\Omni.AutoApi.Abstractions\Routing\ApiRouteBuilder.cs" Link="Shared\ApiRouteBuilder.cs" />
+    <Compile Include="..\Omni.AutoApi.Abstractions\Routing\StringExtensions.cs" Link="Shared\StringExtensions.cs" />
+    <Compile Include="..\Omni.AutoApi.Abstractions\Routing\RouteOptions.cs" Link="Shared\RouteOptions.cs" />
+  </ItemGroup>
+
+</Project>

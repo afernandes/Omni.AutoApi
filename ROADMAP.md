@@ -1,7 +1,7 @@
 # Roadmap — Omni.AutoApi
 
 Estado atual: **v0.1.0 publicada** ([`AndersonN.Omni.AutoApi.*`](https://www.nuget.org/packages/AndersonN.Omni.AutoApi.AspNetCore)),
-4 pacotes (`net9.0;net10.0` + gerador `netstandard2.0`), **96 testes** (42 unitários + 54 de
+4 pacotes (`net9.0;net10.0` + gerador `netstandard2.0`), **107 testes** (53 unitários + 54 de
 integração), CI verde e publicação via Trusted Publishing/OIDC.
 
 Este documento lista o que falta, em ordem de prioridade. Itens marcados **✅** já foram entregues
@@ -39,7 +39,7 @@ use-a em issues e commits.
 |---|------|------|---------|
 | ~~R12~~ ✅ | `AddAutoApiServer<T>()` — controller + in-process numa chamada | Feature | 2–3 h |
 | ~~R13~~ ✅ | Documentos OpenAPI por versão de API | Feature | 4–6 h |
-| R14 | Analisador de uso (erros em compile-time, não no startup) | Feature | 1–2 dias |
+| ~~R14~~ ✅ | Analisador de uso (erros em compile-time, não no startup) | Feature | 1–2 dias |
 | R15 | Central Package Management (`Directory.Packages.props`) | Débito técnico | 1–2 h |
 | R16 | Cobertura de código no CI (coverlet + relatório) | Teste | 2 h |
 | R17 | Teste do ciclo de vida do `AutoApiControllerActivator` | Teste | 1–2 h |
@@ -249,7 +249,7 @@ existem em duas versões — precisa passar a considerar a versão na chave.
 
 ---
 
-### R14 — Analisador de uso (compile-time)
+### R14 — ✅ CONCLUÍDO — Analisador de uso (compile-time)
 
 **Por quê.** Vários erros de uso só aparecem **no startup** (colisão de rota por sobrecarga) ou em
 **runtime** (esquecer de registrar a implementação). Um analisador Roslyn os anteciparia para a

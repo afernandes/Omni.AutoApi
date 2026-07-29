@@ -52,12 +52,22 @@ Toda correção de bug deve vir com um teste que **falha antes** e passa depois.
 
 | Tipo | Projeto | Quando usar |
 |---|---|---|
-| Unitário | `tests/Omni.AutoApi.Tests` | regras de rota, `TypeHelper`, saída do source generator, proxy dinâmico |
+| Unitário | `tests/Omni.AutoApi.Tests` | regras de rota, `TypeHelper`, saída do source generator, diagnósticos do analisador, proxy dinâmico |
 | Integração | `tests/Omni.AutoApi.IntegrationTests` | qualquer coisa que dependa do pipeline MVC real (roteamento, binding, filtros, auth, versionamento) |
 
 Testes de integração usam `WebApplicationFactory` sobre o sample, ou um host próprio com
 `WebApplication.CreateBuilder()` + `UseTestServer()` quando precisam de configuração específica
 (veja `RouteOptionsTests` e `VersioningTests`).
+
+## Analisadores
+
+`src/Omni.AutoApi.Analyzers` (diagnósticos do servidor) e `src/Omni.AutoApi.Client.SourceGenerator`
+alvejam `netstandard2.0` — exigência do Roslyn. Ambos **linkam** `ApiRouteBuilder.cs` do
+`Abstractions` em vez de duplicar a lógica: a rota que o analisador calcula precisa ser exatamente
+a que a convenção usará em runtime.
+
+Ao adicionar um diagnóstico, registre-o em `AnalyzerReleases.Unshipped.md` (senão o build falha com
+`RS2008`) e cubra-o em `AnalyzerTests`.
 
 ## Padrão de commits
 
