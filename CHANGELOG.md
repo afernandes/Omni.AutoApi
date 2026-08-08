@@ -3,7 +3,10 @@
 Mudanças notáveis deste projeto. Formato baseado em [Keep a Changelog](https://keepachangelog.com),
 versionamento [SemVer](https://semver.org).
 
-## [Unreleased]
+## [0.2.0] - 2026-08-08
+
+> Alvo: **net9.0;net10.0** (gerador e analisador em `netstandard2.0`). 115 testes.
+> Nenhuma quebra binária em relação à 0.1.0.
 
 ### Corrigido (crítico)
 - **`LazyServices` deixava de ser injetado ao usar `AddControllersAsServices()`.** A biblioteca

@@ -1,11 +1,1 @@
 #nullable enable
-Omni.AutoApi.AspNetCore.AutoApiActionModel.ApiVersion.get -> string?
-Omni.AutoApi.AspNetCore.AutoApiActionModel.ApiVersion.set -> void
-Omni.AutoApi.AspNetCore.AutoApiDefinitionModel.ApiVersions.get -> System.Collections.Generic.List<string!>!
-Omni.AutoApi.AspNetCore.AutoApiDefinitionModel.ApiVersions.set -> void
-Omni.AutoApi.AspNetCore.ServerRegistrationExtensions
-const Omni.AutoApi.AspNetCore.ApiVersioningExtensions.DocumentNameFormat = "'v'VVV" -> string!
-static Omni.AutoApi.AspNetCore.ApiVersioningExtensions.DiscoverApiDocumentNames(params System.Reflection.Assembly![]! assemblies) -> System.Collections.Generic.IReadOnlyList<string!>!
-static Omni.AutoApi.AspNetCore.AutoApiDefinitionEndpoint.Build(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionGroupCollectionProvider! provider, string? apiVersion) -> Omni.AutoApi.AspNetCore.AutoApiDefinitionModel!
-static Omni.AutoApi.AspNetCore.ServerRegistrationExtensions.AddAutoApiServer<TService, TImplementation>(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
-static Omni.AutoApi.AspNetCore.ServerRegistrationExtensions.AddAutoApiServers(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Reflection.Assembly! assembly) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!

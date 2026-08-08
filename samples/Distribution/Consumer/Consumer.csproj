@@ -10,7 +10,7 @@
   <ItemGroup>
     <!-- O pacote de contratos: traz o cliente + as extensões de DID assados, e Omni.AutoApi.Abstractions
          transitivamente. SEM o gerador. -->
-    <PackageReference Include="MyApi.Contracts" Version="1.1.0" />
+    <PackageReference Include="MyApi.Contracts" Version="1.2.0" />
     <!-- Para usar AddAllAutoApiClients via um ServiceCollection (a extensão em si vem do pacote). -->
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
   </ItemGroup>

@@ -7,7 +7,7 @@
 
     <IsPackable>true</IsPackable>
     <PackageId>MyApi.Contracts</PackageId>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Description>Contratos remotos + cliente HTTP GERADO (Omni.AutoApi) — distribuível via NuGet.</Description>
   </PropertyGroup>
 

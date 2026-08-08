@@ -1,6 +1,6 @@
 # Roadmap — Omni.AutoApi
 
-Estado atual: **v0.1.0 publicada** ([`AndersonN.Omni.AutoApi.*`](https://www.nuget.org/packages/AndersonN.Omni.AutoApi.AspNetCore)),
+Estado atual: **v0.2.0 publicada** ([`AndersonN.Omni.AutoApi.*`](https://www.nuget.org/packages/AndersonN.Omni.AutoApi.AspNetCore)),
 4 pacotes (`net9.0;net10.0` + gerador `netstandard2.0`), **115 testes** (53 unitários + 62 de
 integração), CI verde e publicação via Trusted Publishing/OIDC.
 

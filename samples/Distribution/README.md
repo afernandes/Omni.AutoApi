@@ -2,6 +2,17 @@
 
 Como usar o cliente HTTP gerado pelo Omni.AutoApi num projeto que **não** está na mesma solution.
 
+> ⚠️ **Este exemplo não compila num clone novo sem um passo prévio.** O `Consumer` consome
+> `MyApi.Contracts` como **pacote** (é justamente o que o exemplo demonstra), e o feed local é
+> artefato de build — está no `.gitignore`. Gere-o primeiro:
+>
+> ```powershell
+> ./samples/Distribution/build.ps1
+> ```
+>
+> O script empacota `Omni.AutoApi.Abstractions` + `MyApi.Contracts` em `_feed/` e compila o
+> `Consumer`. Por isso este exemplo também fica fora de `Omni.AutoApi.sln` e do CI.
+
 ## A regra que decide tudo
 
 Um **source generator só enxerga código-fonte da compilação atual** — ele **não** gera clientes

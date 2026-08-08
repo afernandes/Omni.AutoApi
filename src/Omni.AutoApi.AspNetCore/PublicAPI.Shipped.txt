@@ -10,6 +10,8 @@ Omni.AutoApi.AspNetCore.ApplicationService.Logger.get -> Microsoft.Extensions.Lo
 Omni.AutoApi.AspNetCore.AutoApiActionModel
 Omni.AutoApi.AspNetCore.AutoApiActionModel.Action.get -> string!
 Omni.AutoApi.AspNetCore.AutoApiActionModel.Action.set -> void
+Omni.AutoApi.AspNetCore.AutoApiActionModel.ApiVersion.get -> string?
+Omni.AutoApi.AspNetCore.AutoApiActionModel.ApiVersion.set -> void
 Omni.AutoApi.AspNetCore.AutoApiActionModel.AutoApiActionModel() -> void
 Omni.AutoApi.AspNetCore.AutoApiActionModel.Controller.get -> string!
 Omni.AutoApi.AspNetCore.AutoApiActionModel.Controller.set -> void
@@ -30,6 +32,8 @@ Omni.AutoApi.AspNetCore.AutoApiDefinitionEndpoint
 Omni.AutoApi.AspNetCore.AutoApiDefinitionModel
 Omni.AutoApi.AspNetCore.AutoApiDefinitionModel.Actions.get -> System.Collections.Generic.List<Omni.AutoApi.AspNetCore.AutoApiActionModel!>!
 Omni.AutoApi.AspNetCore.AutoApiDefinitionModel.Actions.set -> void
+Omni.AutoApi.AspNetCore.AutoApiDefinitionModel.ApiVersions.get -> System.Collections.Generic.List<string!>!
+Omni.AutoApi.AspNetCore.AutoApiDefinitionModel.ApiVersions.set -> void
 Omni.AutoApi.AspNetCore.AutoApiDefinitionModel.AutoApiDefinitionModel() -> void
 Omni.AutoApi.AspNetCore.AutoApiException
 Omni.AutoApi.AspNetCore.AutoApiException.AutoApiException(string! message, int statusCode = 400, string? errorCode = null) -> void
@@ -64,9 +68,15 @@ Omni.AutoApi.AspNetCore.LazyServiceProvider.GetRequiredService(System.Type! type
 Omni.AutoApi.AspNetCore.LazyServiceProvider.GetRequiredService<T>() -> T
 Omni.AutoApi.AspNetCore.LazyServiceProvider.GetService<T>() -> T?
 Omni.AutoApi.AspNetCore.LazyServiceProvider.LazyServiceProvider(System.IServiceProvider! provider) -> void
+Omni.AutoApi.AspNetCore.ServerRegistrationExtensions
 Omni.AutoApi.AspNetCore.ServiceCollectionExtensions
+const Omni.AutoApi.AspNetCore.ApiVersioningExtensions.DocumentNameFormat = "'v'VVV" -> string!
 override Omni.AutoApi.AspNetCore.AutoApiControllerFeatureProvider.IsController(System.Reflection.TypeInfo! typeInfo) -> bool
 static Omni.AutoApi.AspNetCore.ApiVersioningExtensions.AddAutoApiVersioning(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Action<Asp.Versioning.ApiVersioningOptions!>? configure = null) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
+static Omni.AutoApi.AspNetCore.ApiVersioningExtensions.DiscoverApiDocumentNames(params System.Reflection.Assembly![]! assemblies) -> System.Collections.Generic.IReadOnlyList<string!>!
 static Omni.AutoApi.AspNetCore.AutoApiDefinitionEndpoint.Build(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionGroupCollectionProvider! provider) -> Omni.AutoApi.AspNetCore.AutoApiDefinitionModel!
+static Omni.AutoApi.AspNetCore.AutoApiDefinitionEndpoint.Build(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiDescriptionGroupCollectionProvider! provider, string? apiVersion) -> Omni.AutoApi.AspNetCore.AutoApiDefinitionModel!
 static Omni.AutoApi.AspNetCore.AutoApiDefinitionEndpoint.MapAutoApiDefinition(this Microsoft.AspNetCore.Routing.IEndpointRouteBuilder! endpoints, string! pattern = "/api/auto-api/definition") -> Microsoft.AspNetCore.Builder.IEndpointConventionBuilder!
+static Omni.AutoApi.AspNetCore.ServerRegistrationExtensions.AddAutoApiServer<TService, TImplementation>(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
+static Omni.AutoApi.AspNetCore.ServerRegistrationExtensions.AddAutoApiServers(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Reflection.Assembly! assembly) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
 static Omni.AutoApi.AspNetCore.ServiceCollectionExtensions.AddAutoApiServices(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Action<Omni.AutoApi.Routing.RouteOptions!>? configureRoutes = null) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
